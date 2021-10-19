@@ -1,8 +1,63 @@
-﻿@{
+﻿@model IEnumerable<BackEnd.Entities.Producto>
+
+@{
     ViewData["Title"] = "Página de Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Bienvenida</h1>
-   
+    <h3 style="color:crimson;">@ViewBag.NoHayProductos</h3>
+</div>
+
+<div class="DivPadre d-flex justify-content-center">
+    @foreach (var item in Model)
+    {
+
+        <div class="DivHijo card h-100">
+
+            <img class="card-img-top" src="@item.RutaImagen" />
+
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <h4><label id="lblNombre" class="fw-bolder">@item.NombreProducto</label></h4>
+                    <h5>₡<label id="lblPrecio">@String.Format("{0:n}", item.PrecioProducto)</label></h5>
+                </div>
+                <label style="visibility:hidden" id="lblProducto">@item.IdProducto </label>
+                <label style="visibility:hidden" id="lblImagen">@item.RutaImagen</label>
+            </div>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row">
+
+                <div class="col-md-6">
+
+                    <div class="text-center">
+                        <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
+                           onclick="ComprarProducto(@item.IdProducto)">Comprar</a>
+                    </div>
+                </div>
+
+                @*<div class="col-md-6">
+                    @if (Session["DatosUsuario"] != null)
+                    {
+                        <div class="text-center">
+                            <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
+                               onclick="AgregarCarrito(@item.idProducto)">Añadir Carrito</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark mt-auto" style="width:100%" href="\Login\IniciarSesion">Añadir Carrito</a>
+                        </div>
+                    }
+                </div>*@
+            </div>
+            <div id="alertPrueba-@item.IdProducto" class="alert alert-success collapse">
+                <a id="cerrar" href="#" class="close">&times;</a>
+                <strong>¡Agregado al carrito!</strong>
+            </div>
+        </div>
+
+    }
+
 </div>
