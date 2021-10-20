@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -15,7 +16,10 @@ namespace BackEnd.Entities
         }
 
         public long Cedula { get; set; }
+
+        [Required]
         public string NombreUsuario { get; set; }
+        [Required]
         public string Contrasena { get; set; }
         public string Correo { get; set; }
         public string Nombre { get; set; }
