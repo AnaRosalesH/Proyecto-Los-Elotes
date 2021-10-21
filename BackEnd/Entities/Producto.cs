@@ -20,7 +20,7 @@ namespace BackEnd.Entities
         public double PrecioProducto { get; set; }
         public int CantidadProducto { get; set; }
 
-        public virtual Categorium IdCategoriaNavigation { get; set; }
+        public virtual Categoria IdCategoriaNavigation { get; set; }
         public virtual Marca IdMarcaNavigation { get; set; }
         public virtual ICollection<Carrito> Carritos { get; set; }
     }
