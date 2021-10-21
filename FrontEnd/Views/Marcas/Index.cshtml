@@ -1,0 +1,40 @@
+﻿@model IEnumerable<BackEnd.Entities.Marca>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Marcas</h1>
+
+<p>
+    <a asp-action="Create">Crear nueva marca</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <!--<th>-->
+                @*@Html.DisplayNameFor(model => model.IdMarca)*@
+            <!--</th>-->
+            <th>
+                @Html.DisplayNameFor(model => model.MarcaProducto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.HiddenFor(modelItem => item.IdMarca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarcaProducto)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id=item.IdMarca  }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id=item.IdMarca  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
