@@ -19,7 +19,7 @@ namespace BackEnd.Entities
 
         public virtual DbSet<Bitacora> Bitacoras { get; set; }
         public virtual DbSet<Carrito> Carritos { get; set; }
-        public virtual DbSet<Categorium> Categoria { get; set; }
+        public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Direccion> Direccions { get; set; }
         public virtual DbSet<Factura> Facturas { get; set; }
         public virtual DbSet<Marca> Marcas { get; set; }
@@ -100,7 +100,7 @@ namespace BackEnd.Entities
                     .HasConstraintName("FK_Carrito_Producto");
             });
 
-            modelBuilder.Entity<Categorium>(entity =>
+            modelBuilder.Entity<Categoria>(entity =>
             {
                 entity.HasKey(e => e.IdCategoria);
 
