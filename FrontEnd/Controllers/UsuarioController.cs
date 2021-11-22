@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace FrontEnd.Controllers
 {
-    public class CategoriaController : Controller
+    public class UsuarioController : Controller
     {
 
-         private ICategoriasDAL categoriasDAL;
+         private IUsuarioDAL usuariosDAL;
         
         #region Constructor
-        public CategoriaController()
+        public UsuarioController()
         {
-            categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
+            usuariosDAL = new UsuarioDALImpl(new db_a7b39f_diego1512Context());
         }
         #endregion
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Categoria> categorias;
-            categorias = categoriasDAL.GetAll();
+            IEnumerable<Usuario> usuarios;
+            usuarios = usuariosDAL.GetAll();
 
 
-            return View(categorias);
+            return View(usuarios);
         }
         #endregion
 
@@ -38,9 +38,9 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Categoria categoria)
+        public IActionResult Create(Usuario usuario)
         {
-            categoriasDAL.Add(categoria);
+            usuariosDAL.Add(usuario);
 
             return RedirectToAction("Index");
         }
@@ -50,25 +50,25 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Categoria categoria = categoriasDAL.Get(id);
+            Usuario usuario = usuariosDAL.Get(id);
 
-            return View(categoria);
+            return View(usuario);
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
-            Categoria categoria = categoriasDAL.Get(id);
+            Usuario usuario = usuariosDAL.Get(id);
 
-            return View(categoria);
+            return View(usuario);
         }
 
         [HttpPost]
-        public IActionResult Edit(Categoria categoria)
+        public IActionResult Edit(Usuario usuario)
         {
 
-            categoriasDAL.Update(categoria);
+            usuariosDAL.Update(usuario);
 
             return RedirectToAction("Index");
         }
@@ -79,15 +79,15 @@ namespace FrontEnd.Controllers
         public IActionResult Delete(int id)
         {
 
-            Categoria categoria = categoriasDAL.Get(id);
+            Usuario usuario = usuariosDAL.Get(id);
 
-            return View(categoria);
+            return View(usuario);
         }
 
         [HttpPost]
-        public IActionResult Delete(Categoria categoria)
+        public IActionResult Delete(Usuario usuario)
         {
-            categoriasDAL.Remove(categoria);
+            usuariosDAL.Remove(usuario);
             return RedirectToAction("Index");
         }
         #endregion
