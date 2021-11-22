@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace FrontEnd.Controllers
 {
-    public class CategoriaController : Controller
+    public class RoleController : Controller
     {
 
-         private ICategoriasDAL categoriasDAL;
+         private IRolesDAL rolesDAL;
         
         #region Constructor
-        public CategoriaController()
+        public RoleController()
         {
-            categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
+            rolesDAL = new RolesDALImpl(new db_a7b39f_diego1512Context());
         }
         #endregion
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Categoria> categorias;
-            categorias = categoriasDAL.GetAll();
+            IEnumerable<Role> roles;
+            roles = rolesDAL.GetAll();
 
 
-            return View(categorias);
+            return View(roles);
         }
         #endregion
 
@@ -38,9 +38,9 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Categoria categoria)
+        public IActionResult Create(Role roles)
         {
-            categoriasDAL.Add(categoria);
+            rolesDAL.Add(roles);
 
             return RedirectToAction("Index");
         }
@@ -50,25 +50,25 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Categoria categoria = categoriasDAL.Get(id);
+            Role roles = rolesDAL.Get(id);
 
-            return View(categoria);
+            return View(roles);
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
-            Categoria categoria = categoriasDAL.Get(id);
+            Role roles = rolesDAL.Get(id);
 
-            return View(categoria);
+            return View(roles);
         }
 
         [HttpPost]
-        public IActionResult Edit(Categoria categoria)
+        public IActionResult Edit(Role roles)
         {
 
-            categoriasDAL.Update(categoria);
+            rolesDAL.Update(roles);
 
             return RedirectToAction("Index");
         }
@@ -79,15 +79,15 @@ namespace FrontEnd.Controllers
         public IActionResult Delete(int id)
         {
 
-            Categoria categoria = categoriasDAL.Get(id);
+            Role roles = rolesDAL.Get(id);
 
-            return View(categoria);
+            return View(roles);
         }
 
         [HttpPost]
-        public IActionResult Delete(Categoria categoria)
+        public IActionResult Delete(Role roles)
         {
-            categoriasDAL.Remove(categoria);
+            rolesDAL.Remove(roles);
             return RedirectToAction("Index");
         }
         #endregion
