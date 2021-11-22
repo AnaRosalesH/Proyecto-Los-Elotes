@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace BackEnd.DAL
 {
-   public class MarcasDALImpl : IMarcasDAL
+   public class UsuarioDALImpl : IUsuarioDAL
     {
         private db_a7b39f_diego1512Context context;
-        public MarcasDALImpl(db_a7b39f_diego1512Context _context)
+        public UsuarioDALImpl(db_a7b39f_diego1512Context _context)
         {
             context = _context;
         }
 
-        public bool Add(Marca entity)
+        public bool Add(Usuario entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Usuario> unidad = new UnidadDeTrabajo<Usuario>(context))
                 {
                     unidad.genericDAL.Add(entity);
                     return unidad.Complete();
@@ -34,20 +34,20 @@ namespace BackEnd.DAL
 
         }
 
-        public void AddRange(IEnumerable<Marca> entities)
+        public void AddRange(IEnumerable<Usuario> entities)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Marca> Find(Expression<Func<Marca, bool>> predicate)
+        public IEnumerable<Usuario> Find(Expression<Func<Usuario, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Marca Get(int id)
+        public Usuario Get(int id)
         {
-            Marca result;
-            using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+            Usuario result;
+            using (UnidadDeTrabajo<Usuario> unidad = new UnidadDeTrabajo<Usuario>(context))
             {
                 result = unidad.genericDAL.Get(id);
 
@@ -55,21 +55,21 @@ namespace BackEnd.DAL
             return result;
         }
 
-        public IEnumerable<Marca> GetAll()
+        public IEnumerable<Usuario> GetAll()
         {
-            List<Marca> marcas;
-            using (UnidadDeTrabajo<Marca> Unidad = new UnidadDeTrabajo<Marca>(context))
+            List<Usuario> usuarios;
+            using (UnidadDeTrabajo<Usuario> Unidad = new UnidadDeTrabajo<Usuario>(context))
             {
-                marcas = Unidad.genericDAL.GetAll().ToList();
+                usuarios = Unidad.genericDAL.GetAll().ToList();
             }
-            return marcas;
+            return usuarios;
         }
 
-        public bool Remove(Marca entity)
+        public bool Remove(Usuario entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Usuario> unidad = new UnidadDeTrabajo<Usuario>(context))
                 {
                     unidad.genericDAL.Remove(entity);
                     return unidad.Complete();
@@ -83,21 +83,21 @@ namespace BackEnd.DAL
             }
         }
 
-        public void RemoveRange(IEnumerable<Marca> entities)
+        public void RemoveRange(IEnumerable<Usuario> entities)
         {
             throw new NotImplementedException();
         }
 
-        public Marca SingleOrDefault(Expression<Func<Marca, bool>> predicate)
+        public Usuario SingleOrDefault(Expression<Func<Usuario, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(Marca entity)
+        public bool Update(Usuario entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Usuario> unidad = new UnidadDeTrabajo<Usuario>(context))
                 {
                     unidad.genericDAL.Update(entity);
                     return unidad.Complete();
@@ -110,6 +110,6 @@ namespace BackEnd.DAL
                 return false;
             }
         }
-    }
 
+    }
 }

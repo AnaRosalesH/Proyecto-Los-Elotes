@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace BackEnd.DAL
 {
-   public class MarcasDALImpl : IMarcasDAL
+   public class RolesDALImpl : IRolesDAL
     {
         private db_a7b39f_diego1512Context context;
-        public MarcasDALImpl(db_a7b39f_diego1512Context _context)
+        public RolesDALImpl(db_a7b39f_diego1512Context _context)
         {
             context = _context;
         }
 
-        public bool Add(Marca entity)
+        public bool Add(Role entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Role> unidad = new UnidadDeTrabajo<Role>(context))
                 {
                     unidad.genericDAL.Add(entity);
                     return unidad.Complete();
@@ -34,20 +34,21 @@ namespace BackEnd.DAL
 
         }
 
-        public void AddRange(IEnumerable<Marca> entities)
+
+        public void AddRange(IEnumerable<Role> entities)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Marca> Find(Expression<Func<Marca, bool>> predicate)
+        public IEnumerable<Role> Find(Expression<Func<Role, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Marca Get(int id)
+        public Role Get(int id)
         {
-            Marca result;
-            using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+            Role result;
+            using (UnidadDeTrabajo<Role> unidad = new UnidadDeTrabajo<Role>(context))
             {
                 result = unidad.genericDAL.Get(id);
 
@@ -55,21 +56,21 @@ namespace BackEnd.DAL
             return result;
         }
 
-        public IEnumerable<Marca> GetAll()
+        public IEnumerable<Role> GetAll()
         {
-            List<Marca> marcas;
-            using (UnidadDeTrabajo<Marca> Unidad = new UnidadDeTrabajo<Marca>(context))
+            List<Role> roles;
+            using (UnidadDeTrabajo<Role> Unidad = new UnidadDeTrabajo<Role>(context))
             {
-                marcas = Unidad.genericDAL.GetAll().ToList();
+                roles = Unidad.genericDAL.GetAll().ToList();
             }
-            return marcas;
+            return roles;
         }
 
-        public bool Remove(Marca entity)
+        public bool Remove(Role entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Role> unidad = new UnidadDeTrabajo<Role>(context))
                 {
                     unidad.genericDAL.Remove(entity);
                     return unidad.Complete();
@@ -83,21 +84,21 @@ namespace BackEnd.DAL
             }
         }
 
-        public void RemoveRange(IEnumerable<Marca> entities)
+        public void RemoveRange(IEnumerable<Role> entities)
         {
             throw new NotImplementedException();
         }
 
-        public Marca SingleOrDefault(Expression<Func<Marca, bool>> predicate)
+        public Role SingleOrDefault(Expression<Func<Role, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(Marca entity)
+        public bool Update(Role entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Role> unidad = new UnidadDeTrabajo<Role>(context))
                 {
                     unidad.genericDAL.Update(entity);
                     return unidad.Complete();
@@ -110,6 +111,16 @@ namespace BackEnd.DAL
                 return false;
             }
         }
-    }
 
+
+        Role IDALGenerico<Role>.Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<Role> IDALGenerico<Role>.GetAll()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
