@@ -20,7 +20,7 @@ namespace BackEnd.DAL
         {
             try
             {
-                using (UnidadDeTrabajo<Usuario> unidad = new UnidadDeTrabajo<Usuario>(context))
+                using (UnidadDeTrabajoLong<Usuario> unidad = new UnidadDeTrabajoLong<Usuario>(context))
                 {
                     unidad.genericDAL.Add(entity);
                     return unidad.Complete();
@@ -44,10 +44,10 @@ namespace BackEnd.DAL
             throw new NotImplementedException();
         }
 
-        public Usuario Get(int id)
+        public Usuario Get(long id)
         {
             Usuario result;
-            using (UnidadDeTrabajo<Usuario> unidad = new UnidadDeTrabajo<Usuario>(context))
+            using (UnidadDeTrabajoLong<Usuario> unidad = new UnidadDeTrabajoLong<Usuario>(context))
             {
                 result = unidad.genericDAL.Get(id);
 

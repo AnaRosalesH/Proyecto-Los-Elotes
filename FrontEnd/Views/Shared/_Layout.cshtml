@@ -58,113 +58,101 @@
         }
     </style>
     <!-- Navigation-->
+
+
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             @Html.ActionLink("Tienda Los Elotes", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
 
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="\Productos\Index">Productos</a></li>
-                        </ul>
+                    @if (TempData["DatosUsuario"] != null)
+                    {
+                        TempData.Keep("DatosUsuario");
 
-                    </li>
+                        if (TempData["IdRol"].ToString().Equals("1"))
+                        {
+                            TempData.Keep("IdRol");
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
 
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="\Usuario\Edit">Editar mi cuenta</a></li>
+                                    <li><a class="dropdown-item" href="\Factura\Index">Ver Facturas</a></li>
+                                    <li><a class="dropdown-item" href="\Home\Index">Catálogo</a></li>
+                                    <li><a class="dropdown-item" href="\Productos\Index">Productos</a></li>
+                                    <li><a class="dropdown-item" href="\Categoria\Index">Categorías</a></li>
+                                    <li><a class="dropdown-item" href="\Marcas\Index">Marcas</a></li>
+                                </ul>
 
-                    @*@if (Session["DatosUsuario"] != null)
-        {
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
 
-            if (Session["Rol"].ToString() == "1")
-            {
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="\Usuario\Edit">Editar mi cuenta</a></li>
+                                    <li><a class="dropdown-item" href="\Home\Index">Catálogo</a></li>
+                                </ul>
 
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="\Login\EditarUsuario">Editar mi cuenta</a></li>
-                        <li><a class="dropdown-item" href="\Producto\Facturas">Ver Facturas</a></li>
-                        <li><a class="dropdown-item" href="\Home\Index">Catálogo</a></li>
-                        <li><a class="dropdown-item" href="\ProductosCRUD">Productos</a></li>
-                        <li><a class="dropdown-item" href="\Bitacoras">Bitácora</a></li>
-                        <li><a class="dropdown-item" href="\Categorias">Categorías</a></li>
-                        <li><a class="dropdown-item" href="\Marcas">Marcas</a></li>
-                    </ul>
+                            </li>
+                        }
 
-                </li>
-            }
-            else
-            {
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
 
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="\Login\EditarUsuario">Editar mi cuenta</a></li>
-                        <li><a class="dropdown-item" href="\Home\Index">Catálogo</a></li>
-                    </ul>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="\Home\Index">Catálogo</a></li>
+                            </ul>
 
-                </li>
-            }
-
-        }
-        else
-        {
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
-
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="\Home\Index">Catálogo</a></li>
-                </ul>
-
-            </li>
-        }*@
+                        </li>
+                    }
 
 
 
                 </ul>
                 <form class="d-flex">
-                    @*@if (Session["DatosUsuario"] != null)
-        {
+                    @if (TempData["DatosUsuario"] != null)
+                            {
+                                TempData.Keep("DatosUsuario");
 
 
-            <a href="\Carrito\Carrito" class="btn btn-outline-dark">
-                <i class="bi-cart-fill me-1"></i>
-                Cart
-                <span id="spanCantidad" class="badge bg-dark text-white ms-1 rounded-pill">@Session["Cantidad"]</span>
-            </a>
-
-
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item">
-                    <i class="fa fa-camera-retro"></i><a class="nav-link active"
-                                                         aria-current="page" href="\Login\CerrarSesion">Cerrar sesión</a>
-                </li>
-            </ul>
-        }
-        else
-        {
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item">
-                    <i class="fa fa-camera-retro"></i><a class="nav-link active"
-                                                         aria-current="page" href="\Login\IniciarSesion">Iniciar Sesión</a>
-                </li>
+                        <a href="\Carrito\Carrito" class="btn btn-outline-dark">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span id="spanCantidad" class="badge bg-dark text-white ms-1 rounded-pill">?</span>
+                        </a>
 
 
 
-            </ul>
-        }*@
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-item">
+                                <i class="fa fa-camera-retro"></i><a class="nav-link active"
+                                                                     aria-current="page" href="\Login\CerrarSesion">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-item">
+                                <i class="fa fa-camera-retro"></i><a class="nav-link active"
+                                                                     aria-current="page" href="\Login\IniciarSesion">Iniciar Sesión</a>
+                            </li>
 
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item">
-                            <i class="fa fa-camera-retro"></i><a class="nav-link active"
-                                                                 aria-current="page" href="\Login\IniciarSesion">Iniciar Sesión</a>
-                        </li>
 
 
+                        </ul>
+                    }
 
-                    </ul>
+
 
                 </form>
 
@@ -177,30 +165,23 @@
             <div class="text-center text-white">
 
                 @{
-                    <h1 class="display-4 fw-bolder">Bienvenid@@ @TempData["Nombre"]</h1>
-                    TempData.Keep("Nombre");
+                    if (TempData["DatosUsuario"] != null)
+
+                    {
+                        <h1 class="display-4 fw-bolder">Bienvenid@@ @TempData["NombreUsuario"]</h1>
+                    }
+                    else
+                    {
+                        <h1 class="display-4 fw-bolder">Bienvenid@@</h1>
+                    }
+
+                    TempData.Keep("DatosUsuario");
+                    TempData.Keep("NombreUsuario");
                 }
 
 
 
-                @*@if (Session["DatosUsuario"] != null)
-        {
-            <h1 class="display-4 fw-bolder">Bienvenid@@ @Session["NombreUsuario"]</h1>
-        }
-        else
-        {
-            <h1 class="display-4 fw-bolder">Bienvenid@@</h1>
-        }*@
-
-
                 <p class="lead fw-normal text-white-50 mb-0">Tienda Virtual - Los Elotes</p>
-
-                @*<div class="alert alert-warning alert-dismissible fade show" role="alert"">
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>*@
 
             </div>
         </div>
