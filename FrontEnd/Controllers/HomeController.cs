@@ -28,6 +28,13 @@ namespace FrontEnd.Controllers
             IEnumerable<Producto> productos;
             productos = homeDAL.GetAll();
 
+            if (TempData["IdRol"] == null)
+            {
+                TempData["IdRol"] = 3;
+                
+            }
+
+            TempData.Keep("IdRol");
 
             return View(productos);
         }
