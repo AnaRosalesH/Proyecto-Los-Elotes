@@ -1,4 +1,5 @@
-﻿using BackEnd.Entities;
+﻿using BackEnd.DAL;
+using BackEnd.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,11 @@ namespace FrontEnd.Controllers
 {
     public class LoginController : Controller
     {
-
-        private readonly db_a7b39f_diego1512Context _context;
+        
 
         public LoginController(db_a7b39f_diego1512Context context)
         {
-            _context = context;
+            
         }
 
         public IActionResult IniciarSesion()
@@ -38,6 +38,9 @@ namespace FrontEnd.Controllers
 
                 if (usuario != null)
                 {
+
+                    TempData["DatosUsuario"] = "siHay";
+
                     TempData["Cedula"] = (int)usuario.Cedula; 
                     TempData["NombreUsuario"] = usuario.NombreUsuario;
                     TempData["Correo"] = usuario.Correo;
@@ -52,5 +55,24 @@ namespace FrontEnd.Controllers
 
             return View();
         }
+
+        public IActionResult CerrarSesion()
+        {
+            TempData["Cedula"] = null;
+            TempData["NombreUsuario"] = null;
+            TempData["Correo"] = null;
+            TempData["Nombre"] = null;
+            TempData["Apellido"] = null;
+            TempData["IdRol"] = null;
+
+            TempData["DatosUsuario"] = null;
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
+
     }
 }
