@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace BackEnd.DAL
 {
-   public class MarcasDALImpl : IMarcasDAL
+   public class CategoriasDALImpl : ICategoriasDAL
     {
         private db_a7b39f_diego1512Context context;
-        public MarcasDALImpl(db_a7b39f_diego1512Context _context)
+        public CategoriasDALImpl(db_a7b39f_diego1512Context _context)
         {
             context = _context;
         }
 
-        public bool Add(Marca entity)
+        public bool Add(Categoria entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Categoria> unidad = new UnidadDeTrabajo<Categoria>(context))
                 {
                     unidad.genericDAL.Add(entity);
                     return unidad.Complete();
@@ -34,20 +34,20 @@ namespace BackEnd.DAL
 
         }
 
-        public void AddRange(IEnumerable<Marca> entities)
+        public void AddRange(IEnumerable<Categoria> entities)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Marca> Find(Expression<Func<Marca, bool>> predicate)
+        public IEnumerable<Categoria> Find(Expression<Func<Categoria, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Marca Get(int id)
+        public Categoria Get(int id)
         {
-            Marca result;
-            using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+            Categoria result;
+            using (UnidadDeTrabajo<Categoria> unidad = new UnidadDeTrabajo<Categoria>(context))
             {
                 result = unidad.genericDAL.Get(id);
 
@@ -55,21 +55,21 @@ namespace BackEnd.DAL
             return result;
         }
 
-        public IEnumerable<Marca> GetAll()
+        public IEnumerable<Categoria> GetAll()
         {
-            List<Marca> marcas;
-            using (UnidadDeTrabajo<Marca> Unidad = new UnidadDeTrabajo<Marca>(context))
+            List<Categoria> categorias;
+            using (UnidadDeTrabajo<Categoria> Unidad = new UnidadDeTrabajo<Categoria>(context))
             {
-                marcas = Unidad.genericDAL.GetAll().ToList();
+                categorias = Unidad.genericDAL.GetAll().ToList();
             }
-            return marcas;
+            return categorias;
         }
 
-        public bool Remove(Marca entity)
+        public bool Remove(Categoria entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Categoria> unidad = new UnidadDeTrabajo<Categoria>(context))
                 {
                     unidad.genericDAL.Remove(entity);
                     return unidad.Complete();
@@ -83,21 +83,21 @@ namespace BackEnd.DAL
             }
         }
 
-        public void RemoveRange(IEnumerable<Marca> entities)
+        public void RemoveRange(IEnumerable<Categoria> entities)
         {
             throw new NotImplementedException();
         }
 
-        public Marca SingleOrDefault(Expression<Func<Marca, bool>> predicate)
+        public Categoria SingleOrDefault(Expression<Func<Categoria, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(Marca entity)
+        public bool Update(Categoria entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Marca> unidad = new UnidadDeTrabajo<Marca>(context))
+                using (UnidadDeTrabajo<Categoria> unidad = new UnidadDeTrabajo<Categoria>(context))
                 {
                     unidad.genericDAL.Update(entity);
                     return unidad.Complete();
@@ -110,6 +110,6 @@ namespace BackEnd.DAL
                 return false;
             }
         }
-    }
 
+    }
 }
