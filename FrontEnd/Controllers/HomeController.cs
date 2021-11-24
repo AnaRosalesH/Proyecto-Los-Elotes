@@ -1,4 +1,6 @@
-﻿using FrontEnd.Models;
+﻿using BackEnd.DAL;
+using BackEnd.Entities;
+using FrontEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,16 +13,30 @@ namespace FrontEnd.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private IProductosDAL homeDAL;
+
+        #region Constructor
+        public HomeController()
         {
-            _logger = logger;
+           homeDAL = new ProductosDALImpl(new db_a7b39f_diego1512Context());
         }
+        #endregion
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Producto> productos;
+            productos = homeDAL.GetAll();
+
+            if (TempData["IdRol"] == null)
+            {
+                TempData["IdRol"] = 3;
+                
+            }
+
+            TempData.Keep("IdRol");
+
+            return View(productos);
         }
 
         public IActionResult Privacy()
