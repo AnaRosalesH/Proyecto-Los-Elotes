@@ -4,37 +4,83 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdCategoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoriaProducto)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoriaProducto)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.IdCategoria}) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.IdCategoria })
-            </td>
-        </tr>
+<div class="container">
+
+    <br />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table id="tblProd" class="display table stripe hover row-border" style="width: 100%; cellspacing: 0;">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                Categoría Producto
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoriaProducto)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdCategoria },
+                                    new { @class = "btn btn-info", style = "width: 49%;" })
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCategoria },
+                                   new { @class = "btn btn-danger", style = "width: 49%;" })
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+                <div class="row col-lg-12">
+
+                    <div class="col-lg-4 form-group">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 form-group">
+                        <div class="col-md-12">
+                            <br>
+                            @Html.ActionLink("Crear nueva categoría", "Create", "Categoria", null, new { @class = "btn btn-warning form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 form-group">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+    <script>
+        $('#tblProd').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+    </script>
 }
-    </tbody>
-</table>
