@@ -45,6 +45,34 @@ namespace BackEnd.DAL
             throw new NotImplementedException();
         }
 
+        public List<Carrito> GetCarrito(long cedula)
+        {
+            List<Carrito> result;
+
+            result = context.Carritos.FromSqlRaw($"exec dbo.ConsultarCarrito @id ={cedula} ")
+            .ToListAsync().Result;
+
+            return result;
+        }
+       
+        public bool Update(long cedula, int producto, string nombre, string imagen, decimal precio)
+        {
+            try
+            {
+                context.Carritos.FromSqlRaw($"exec dbo.InsertarCarrito @id ={cedula}, @producto ={producto}, @nombre ={nombre}," +
+                    $"@imagen ={imagen}, @precio ={precio}");
+                
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+ 
+
         public Carrito Get(int id)
         {
             Carrito result;
@@ -55,6 +83,8 @@ namespace BackEnd.DAL
             }
             return result;
         }
+
+  
 
         public IEnumerable<Carrito> GetAll()
         {

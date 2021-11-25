@@ -5,67 +5,118 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="container-fluid">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdCategoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdMarca)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RutaImagen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecioProducto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CantidadProducto)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdCategoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdMarca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RutaImagen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioProducto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CantidadProducto)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.IdProducto }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.IdProducto })
-            </td>
-        </tr>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive">
+                <table id="tblProd" class="display table stripe hover row-border" style="width: 100%; cellspacing: 0;">
+                    <thead>
+                        <tr>
+                            <th>
+                                Producto
+                            </th>
+                            <th>
+                                Imagen
+                            </th>
+                            <th>
+                                Precio
+                            </th>
+                            <th>
+                                Cantidad
+                            </th>
+                            <th>
+                                Categoría
+                            </th>
+                            <th>
+                                Marca
+                            </th>
+                            <th class="col-sm-3"></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NombreProducto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RutaImagen)
+                                </td>
+                                <td>
+                                    ₡@Html.DisplayFor(modelItem => item.PrecioProducto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CantidadProducto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdCategoria)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdMarca)
+                                </td>
+                                <td>
+
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdProducto },
+                                   new { @class = "btn btn-info", style = "width: 49%;" })
+
+
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdProducto },
+                                   new { @class = "btn btn-danger", style = "width: 49%;" })
+
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+                <div class="row col-lg-12">
+
+                    <div class="col-lg-4 form-group">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 form-group">
+                        <div class="col-md-12">
+                            <br>
+                            @Html.ActionLink("Crear nuevo producto", "Create", "Productos", null, new { @class = "btn btn-warning form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 form-group">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="display:flex; justify-content:center;"></div>
+@section scripts{
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+    <script>
+        $('#tblProd').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+    </script>
+
 }
-    </tbody>
-</table>

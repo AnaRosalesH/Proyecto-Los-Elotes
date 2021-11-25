@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BackEnd.Entities.Carrito>
+
+
+
+@{ ViewBag.Title = "Carrito";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<!-- Section-->
+<div class="DivPadre d-flex justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="DivHijo card h-100">
+
+            <img class="card-img-top" src="@item.RutaImagen" />
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <h4 class="fw-bolder">@item.NombreProducto</h4>
+                    <!-- Product price-->
+                    <h5>₡<label id="lblPrecio">@String.Format("{0:n}", item.PrecioProducto)</label></h5>
+                </div>
+
+            </div>
+
+
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row">
+                <div class="col-md-12">
+                    <div class="text-center" onclick="EliminarCarrito(@item.IdProducto)"><a class="btn btn-outline-dark mt-auto" style="width:100%">Eliminar 1</a></div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+
+@section Scripts
+{
+    <script src="~/js/ProductosJS.js"></script>
+}

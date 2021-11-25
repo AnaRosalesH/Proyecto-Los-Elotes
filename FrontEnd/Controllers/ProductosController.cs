@@ -44,7 +44,9 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Create(Producto producto)
         {
+
             productosDAL.Add(producto);
+
 
             return RedirectToAction("Index");
         }

@@ -9,5 +9,7 @@ namespace BackEnd.DAL
 {
    public interface ICarritoDAL : IDALGenerico<Carrito>
     {
+        List<Carrito> GetCarrito(long cedula);
+        bool Update(long cedula, int producto, string nombre, string imagen, decimal precio);
     }
 }
