@@ -24,13 +24,33 @@ namespace FrontEnd.Controllers
         #region Lista
         public IActionResult Index()
         {
+
             try
             {
-                IEnumerable<Factura> facturas;
-                facturas = facturasDAL.GetAll();
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        IEnumerable<Factura> facturas;
+                        facturas = facturasDAL.GetAll();
 
 
-                return View(facturas);
+                        return View(facturas);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -41,102 +61,7 @@ namespace FrontEnd.Controllers
         }
         #endregion
 
-        #region Agregar
-        public IActionResult Create()
-        {
-            return View();
 
-        }
-
-        [HttpPost]
-        public IActionResult Create(Factura factura)
-        {
-            try
-            {
-                facturasDAL.Add(factura);
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-           
-        }
-        #endregion
-
-        #region Editar
-        public IActionResult Edit(int id)
-        {
-            try
-            {
-                Factura factura = facturasDAL.Get(id);
-
-                return View(factura);
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-           
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Factura factura)
-        {
-            try
-            {
-                facturasDAL.Update(factura);
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-            
-        }
-
-
-        #endregion
-
-        #region Eliminar
-
-        public IActionResult Delete(int id)
-        {
-            try
-            {
-                Factura factura = facturasDAL.Get(id);
-
-                return View(factura);
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-            
-        }
-
-        [HttpPost]
-        public IActionResult Delete(Factura factura)
-        {
-            try
-            {
-                facturasDAL.Remove(factura);
-                return RedirectToAction("Index");
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-            
-        }
-        #endregion
 
     }
 }

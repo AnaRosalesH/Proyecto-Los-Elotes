@@ -28,20 +28,23 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                IEnumerable<Producto> productos;
-                productos = homeDAL.GetAll();
+                    IEnumerable<Producto> productos;
+                    productos = homeDAL.GetAll();
 
-                if (TempData["IdRol"] == null)
-                {
-                    TempData["IdRol"] = 3;
+                    if (TempData["IdRol"] == null)
+                    {
+                        TempData["IdRol"] = 3;
 
-                }
+                    }
 
-                TempData.Keep("IdRol");
+                    TempData.Keep("IdRol");
 
 
+                    return View(productos);
 
-                return View(productos);
+
+              
+                
             }
             catch (Exception e)
             {

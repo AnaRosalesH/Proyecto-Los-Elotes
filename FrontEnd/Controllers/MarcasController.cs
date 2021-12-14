@@ -24,11 +24,29 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                IEnumerable<Marca> marcas;
-                marcas = marcasDAL.GetAll();
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        IEnumerable<Marca> marcas;
+                        marcas = marcasDAL.GetAll();
 
 
-                return View(marcas);
+                        return View(marcas);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -43,7 +61,25 @@ namespace FrontEnd.Controllers
         #region Agregar
         public IActionResult Create()
         {
-            return View();
+            if (TempData["IdRol"] != null)
+            {
+                if (TempData["IdRol"].ToString().Equals("1"))
+                {
+                    return View();
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                TempData.Keep("IdRol");
+                return RedirectToAction("Index", "Home");
+
+            }
+            
 
         }
 
@@ -72,9 +108,27 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Marca marca = marcasDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Marca marca = marcasDAL.Get(id);
 
-                return View(marca);
+                        return View(marca);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -90,9 +144,27 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Marca marca = marcasDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Marca marca = marcasDAL.Get(id);
 
-                return View(marca);
+                        return View(marca);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception)
             {
@@ -128,9 +200,27 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Marca marca = marcasDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Marca marca = marcasDAL.Get(id);
 
-                return View(marca);
+                        return View(marca);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
