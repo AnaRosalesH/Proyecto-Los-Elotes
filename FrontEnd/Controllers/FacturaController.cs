@@ -24,11 +24,20 @@ namespace FrontEnd.Controllers
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Factura> facturas;
-            facturas = facturasDAL.GetAll();
+            try
+            {
+                IEnumerable<Factura> facturas;
+                facturas = facturasDAL.GetAll();
 
 
-            return View(facturas);
+                return View(facturas);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
 
@@ -42,27 +51,53 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Create(Factura factura)
         {
-            facturasDAL.Add(factura);
-          
-            return RedirectToAction("Index");
+            try
+            {
+                facturasDAL.Add(factura);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
-            Factura factura = facturasDAL.Get(id);
+            try
+            {
+                Factura factura = facturasDAL.Get(id);
 
-            return View(factura);
+                return View(factura);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
 
         [HttpPost]
         public IActionResult Edit(Factura factura)
         {
+            try
+            {
+                facturasDAL.Update(factura);
 
-            facturasDAL.Update(factura);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
 
-            return RedirectToAction("Index");
+                throw;
+            }
+            
         }
 
 
@@ -72,17 +107,34 @@ namespace FrontEnd.Controllers
 
         public IActionResult Delete(int id)
         {
+            try
+            {
+                Factura factura = facturasDAL.Get(id);
 
-            Factura factura = facturasDAL.Get(id);
+                return View(factura);
+            }
+            catch (Exception e)
+            {
 
-            return View(factura);
+                throw;
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Delete(Factura factura)
         {
-            facturasDAL.Remove(factura);
-            return RedirectToAction("Index");
+            try
+            {
+                facturasDAL.Remove(factura);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 

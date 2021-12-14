@@ -19,14 +19,24 @@ namespace FrontEnd.Controllers
             rolesDAL = new RolesDALImpl(new db_a7b39f_diego1512Context());
         }
         #endregion
+
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Role> roles;
-            roles = rolesDAL.GetAll();
+            try
+            {
+                IEnumerable<Role> roles;
+                roles = rolesDAL.GetAll();
 
 
-            return View(roles);
+                return View(roles);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
 
@@ -40,9 +50,18 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Create(Role roles)
         {
-            rolesDAL.Add(roles);
+            try
+            {
+                rolesDAL.Add(roles);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
@@ -50,27 +69,54 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Role roles = rolesDAL.Get(id);
+            try
+            {
+                Role roles = rolesDAL.Get(id);
 
-            return View(roles);
+                return View(roles);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
-            Role roles = rolesDAL.Get(id);
+            try
+            {
+                Role roles = rolesDAL.Get(id);
 
-            return View(roles);
+                return View(roles);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
 
         [HttpPost]
         public IActionResult Edit(Role roles)
         {
+            try
+            {
+                rolesDAL.Update(roles);
 
-            rolesDAL.Update(roles);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
 
-            return RedirectToAction("Index");
+                throw;
+            }
+
+           
         }
         #endregion
 
@@ -78,17 +124,34 @@ namespace FrontEnd.Controllers
 
         public IActionResult Delete(int id)
         {
+            try
+            {
+                Role roles = rolesDAL.Get(id);
 
-            Role roles = rolesDAL.Get(id);
+                return View(roles);
+            }
+            catch (Exception e)
+            {
 
-            return View(roles);
+                throw;
+            }
+           
         }
 
         [HttpPost]
         public IActionResult Delete(Role roles)
         {
-            rolesDAL.Remove(roles);
-            return RedirectToAction("Index");
+            try
+            {
+                rolesDAL.Remove(roles);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
     }
