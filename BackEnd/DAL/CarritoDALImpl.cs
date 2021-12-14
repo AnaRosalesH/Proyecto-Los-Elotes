@@ -1,4 +1,5 @@
 ﻿using BackEnd.Entities;
+using FrontEnd.Utilidades;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -111,11 +112,12 @@ namespace BackEnd.DAL
 
         }
 
-        public void ComprarCarrito(long cedula)
+        public void ComprarCarrito(long cedula, string correo)
         {
 
             //context.Carritos.FromSqlRaw($"exec dbo.EliminarProductoCarrito @id ={cedula} ");
             double montoTotal = 0;
+            string listaProductos = "";
 
             using (var db = new db_a7b39f_diego1512Context())
             {
@@ -124,6 +126,7 @@ namespace BackEnd.DAL
 
                 foreach (var item in itemsLista)
                 {
+                    listaProductos += item.NombreProducto + "\n";
                     montoTotal += item.PrecioProducto;
                     db.Remove(item);
                 }
@@ -140,6 +143,8 @@ namespace BackEnd.DAL
                 db2.SaveChanges();
 
             }
+
+            Correo.enviarCorreo(correo, "Productos comprados:\n" + listaProductos + "\nTotal: " + montoTotal);
         }
 
         public bool Update(long cedula, int producto, string nombre, string imagen, decimal precio)
