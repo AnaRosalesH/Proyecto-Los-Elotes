@@ -28,20 +28,17 @@
             </div>
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row">
 
-                <div class="col-md-6">
 
-                    <div class="text-center">
-                        <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
-                           onclick="ComprarProducto(@item.IdProducto)">Comprar</a>
-                    </div>
-                </div>
-
-                @*<div class="col-md-6">
-                    @if (Session["DatosUsuario"] != null)
+                <div class="col-md-12">
+                    @if (TempData["DatosUsuario"] != null)
                     {
-                        <div class="text-center">
+                        TempData.Keep("DatosUsuario");
+                        <!--<div class="text-center">
                             <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
-                               onclick="AgregarCarrito(@item.idProducto)">Añadir Carrito</a>
+                               onclick="AgregarCarrito(@item.IdProducto)">Añadir Carrito</a>
+                        </div>-->
+                        <div class="text-center">
+                            <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%">Añadir Carrito</a>
                         </div>
                     }
                     else
@@ -50,7 +47,7 @@
                             <a class="btn btn-outline-dark mt-auto" style="width:100%" href="\Login\IniciarSesion">Añadir Carrito</a>
                         </div>
                     }
-                </div>*@
+                </div>
             </div>
             <div id="alertPrueba-@item.IdProducto" class="alert alert-success collapse">
                 <a id="cerrar" href="#" class="close">&times;</a>

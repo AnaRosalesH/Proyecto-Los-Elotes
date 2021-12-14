@@ -9,27 +9,27 @@ using System.Threading.Tasks;
 
 namespace FrontEnd.Controllers
 {
-    public class ProductosController : Controller
+    public class DireccionController : Controller
     {
 
 
-        private IProductosDAL productosDAL;
-        
+        private IDireccionDAL direccionesDAL;
+
         #region Constructor
-        public ProductosController()
+        public DireccionController()
         {
-            productosDAL = new ProductosDALImpl(new db_a7b39f_diego1512Context());
+            direccionesDAL = new DireccionDALImpl(new db_a7b39f_diego1512Context());
         }
         #endregion
 
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Producto> productos;
-            productos = productosDAL.GetAll();
+            IEnumerable<Direccion> direcciones;
+            direcciones = direccionesDAL.GetAll();
 
-            
-            return View(productos);
+
+            return View(direcciones);
         }
         #endregion
 
@@ -42,11 +42,9 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Producto producto)
+        public IActionResult Create(Direccion direccion)
         {
-
-            productosDAL.Add(producto);
-
+            direccionesDAL.Add(direccion);
 
             return RedirectToAction("Index");
         }
@@ -57,25 +55,25 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Producto producto = productosDAL.Get(id);
+            Direccion direccion= direccionesDAL.Get(id);
 
-            return View(producto);
+            return View(direccion);
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
-            Producto producto = productosDAL.Get(id);
+            Direccion direccion = direccionesDAL.Get(id);
 
-            return View(producto);
+            return View(direccion);
         }
 
         [HttpPost]
-        public IActionResult Edit(Producto producto)
+        public IActionResult Edit(Direccion direccion)
         {
 
-            productosDAL.Update(producto);
+            direccionesDAL.Update(direccion);
 
             return RedirectToAction("Index");
         }
@@ -89,15 +87,15 @@ namespace FrontEnd.Controllers
         public IActionResult Delete(int id)
         {
 
-            Producto producto = productosDAL.Get(id);
+            Direccion direccion = direccionesDAL.Get(id);
 
-            return View(producto);
+            return View(direccion);
         }
 
         [HttpPost]
-        public IActionResult Delete(Producto producto)
+        public IActionResult Delete(Direccion direccion)
         {
-            productosDAL.Remove(producto);
+            direccionesDAL.Remove(direccion);
             return RedirectToAction("Index");
         }
         #endregion
