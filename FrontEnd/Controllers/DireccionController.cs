@@ -25,11 +25,20 @@ namespace FrontEnd.Controllers
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Direccion> direcciones;
-            direcciones = direccionesDAL.GetAll();
+            try
+            {
+                IEnumerable<Direccion> direcciones;
+                direcciones = direccionesDAL.GetAll();
 
 
-            return View(direcciones);
+                return View(direcciones);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
@@ -44,9 +53,18 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Create(Direccion direccion)
         {
-            direccionesDAL.Add(direccion);
+            try
+            {
+                direccionesDAL.Add(direccion);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
@@ -55,27 +73,52 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Direccion direccion= direccionesDAL.Get(id);
+            try
+            {
+                Direccion direccion = direccionesDAL.Get(id);
 
-            return View(direccion);
+                return View(direccion);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
-            Direccion direccion = direccionesDAL.Get(id);
+            try
+            {
+                Direccion direccion = direccionesDAL.Get(id);
 
-            return View(direccion);
+                return View(direccion);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Edit(Direccion direccion)
         {
+            try
+            {
+                direccionesDAL.Update(direccion);
 
-            direccionesDAL.Update(direccion);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
 
-            return RedirectToAction("Index");
+                throw;
+            }          
         }
 
 
@@ -86,17 +129,34 @@ namespace FrontEnd.Controllers
 
         public IActionResult Delete(int id)
         {
+            try
+            {
+                Direccion direccion = direccionesDAL.Get(id);
 
-            Direccion direccion = direccionesDAL.Get(id);
+                return View(direccion);
+            }
+            catch (Exception e)
+            {
 
-            return View(direccion);
+                throw;
+            }
+         
         }
 
         [HttpPost]
         public IActionResult Delete(Direccion direccion)
         {
-            direccionesDAL.Remove(direccion);
-            return RedirectToAction("Index");
+            try
+            {
+                direccionesDAL.Remove(direccion);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
     }

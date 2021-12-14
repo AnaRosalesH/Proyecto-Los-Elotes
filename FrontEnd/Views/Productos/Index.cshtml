@@ -1,12 +1,13 @@
-﻿@model IEnumerable<BackEnd.Entities.Producto>
+﻿@model IEnumerable<FrontEnd.Models.ProductoViewModel>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid">
+<h1>Index</h1>
 
+<div class="container-fluid">
     <br />
 
     <div class="row">
@@ -41,7 +42,6 @@
                         </tr>
                     </tfoot>
                     <tbody>
-
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -76,7 +76,6 @@
                                 </td>
                             </tr>
                         }
-
                     </tbody>
                 </table>
 
@@ -104,9 +103,7 @@
         </div>
     </div>
 
-</div>
-
-<div style="display:flex; justify-content:center;"></div>
+</div><div style="display:flex; justify-content:center;"></div>
 @section scripts{
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>

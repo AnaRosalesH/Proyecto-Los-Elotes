@@ -25,35 +25,45 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult IniciarSesion(Usuario usr)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                ViewBag.mensaje = "Error al iniciar sesión.";
+                using (var db = new db_a7b39f_diego1512Context())
+                {
+                    var usuario = (from x in db.Usuarios
+                                   where x.NombreUsuario == usr.NombreUsuario &&
+             x.Contrasena == usr.Contrasena
+                                   select x).FirstOrDefault();
+
+                    if (usuario != null)
+                    {
+
+                        TempData["DatosUsuario"] = "siHay";
+
+                        TempData["Cedula"] = (int)usuario.Cedula;
+                        TempData["NombreUsuario"] = usuario.NombreUsuario;
+                        TempData["Correo"] = usuario.Correo;
+                        TempData["Nombre"] = usuario.Nombre;
+                        TempData["Apellido"] = usuario.Apellido;
+                        TempData["IdRol"] = usuario.IdRol;
+
+                        return RedirectToAction("Index", "Home");
+
+                    }
+                    else
+                    {
+                        ViewBag.mensaje = "Error al iniciar sesión.";
+                    }
+                }
+
                 return View();
             }
-
-            using (var db = new db_a7b39f_diego1512Context())
+            catch (Exception e)
             {
-                var usuario = (from x in db.Usuarios where x.NombreUsuario == usr.NombreUsuario &&
-                               x.Contrasena == usr.Contrasena select x).FirstOrDefault();
 
-                if (usuario != null)
-                {
-
-                    TempData["DatosUsuario"] = "siHay";
-
-                    TempData["Cedula"] = (int)usuario.Cedula; 
-                    TempData["NombreUsuario"] = usuario.NombreUsuario;
-                    TempData["Correo"] = usuario.Correo;
-                    TempData["Nombre"] = usuario.Nombre;
-                    TempData["Apellido"] = usuario.Apellido;
-                    TempData["IdRol"] = usuario.IdRol;
-
-                    return RedirectToAction("Index", "Home");
-
-                }
+                throw;
             }
 
-            return View();
+           
         }
 
         public IActionResult CerrarSesion()

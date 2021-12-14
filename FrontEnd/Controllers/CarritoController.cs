@@ -63,5 +63,61 @@ namespace FrontEnd.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        public IActionResult EliminarCarrito()
+        {
+
+            try
+            {
+                        int cedula = (int)TempData["Cedula"];
+                        TempData.Keep("Cedula");
+                        carritoDAL.EliminarCarrito(cedula);
+                        return RedirectToAction("Index", "Home");
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public IActionResult ComprarCarrito()
+        {
+            string correo = (string)TempData["Correo"];
+            TempData.Keep("Correo");
+
+            try
+            {
+                int cedula = (int)TempData["Cedula"];
+                TempData.Keep("Cedula");
+                carritoDAL.ComprarCarrito(cedula, correo);
+                return RedirectToAction("Index", "Home");
+
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AgregarCarrito(int idProducto)
+        {
+            try
+            {
+                int cedula = (int)TempData["Cedula"];
+                TempData.Keep("Cedula");
+
+                carritoDAL.AgregarAlCarrito(idProducto, cedula);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
+        }
     }
 }

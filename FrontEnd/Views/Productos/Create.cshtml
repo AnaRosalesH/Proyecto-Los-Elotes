@@ -1,4 +1,4 @@
-﻿@model BackEnd.Entities.Producto
+﻿@model FrontEnd.Models.ProductoViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -35,57 +35,55 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.IdCategoria, "Categoría", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.IdCategoria, "Categorías", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.IdCategoria, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
-
+                            @Html.DropDownListFor(model => model.IdCategoria, new SelectList(Model.Categorias, "IdCategoria", "CategoriaProducto"), "--Seleccione--", new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                             @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
-                        </div>
+                        </div>                           
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.IdMarca, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.IdCategoria, "Marcas", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.IdMarca, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
-
+                            @Html.DropDownListFor(model => model.IdMarca, new SelectList(Model.Marcas, "IdMarca", "MarcaProducto"), "--Seleccione--", new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                             @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.RutaImagen, "Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RutaImagen, "Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
 
-                            <input type="file" name="file" />
-                            @Html.EditorFor(model => model.RutaImagen, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                <input type="file" name="file" />
+                                @Html.EditorFor(model => model.RutaImagen, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
-                            @Html.ValidationMessageFor(model => model.RutaImagen, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.PrecioProducto, "Precio", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.PrecioProducto, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
-                            @Html.ValidationMessageFor(model => model.PrecioProducto, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CantidadProducto, "Cantidad", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.CantidadProducto, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
-                            @Html.ValidationMessageFor(model => model.CantidadProducto, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Agregar producto" class="btn btn-success" style="width: 100%;" />
+                                @Html.ValidationMessageFor(model => model.RutaImagen, "", new { @class = "text-danger" })
+                            </div>
                         </div>
 
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PrecioProducto, "Precio", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PrecioProducto, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
+                                @Html.ValidationMessageFor(model => model.PrecioProducto, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CantidadProducto, "Cantidad", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.CantidadProducto, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
+                                @Html.ValidationMessageFor(model => model.CantidadProducto, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Agregar producto" class="btn btn-success" style="width: 100%;" />
+                            </div>
+
+                        </div>
                     </div>
-                </div>
 
             }
 
@@ -139,9 +137,10 @@
 
     <script>
         $(document).ready(function () {
+            alert('asd');
             $('input[type="file"]').change(function (e) {
                 var fileName = e.target.files[0].name;
-                document.getElementById("rutaImagen").value = "/img/" + fileName;
+                document.getElementById("RutaImagen").value = "/img/" + fileName;
 
             });
         });

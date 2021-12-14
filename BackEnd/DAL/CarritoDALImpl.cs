@@ -1,4 +1,5 @@
 ﻿using BackEnd.Entities;
+using FrontEnd.Utilidades;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,41 @@ namespace BackEnd.DAL
         public CarritoDALImpl(db_a7b39f_diego1512Context _context)
         {
             context = _context;
+        }
+
+
+        public void AgregarAlCarrito(int idProducto, int cedula)
+        {
+            string nombre;
+            string rutaImagen;
+            double precio;
+
+            using (var db = new db_a7b39f_diego1512Context())
+            {
+                var productoDatos = db.Productos.Where(p => p.IdProducto == idProducto).FirstOrDefault();
+
+                nombre = productoDatos.NombreProducto;
+                rutaImagen = productoDatos.RutaImagen;
+                precio = productoDatos.PrecioProducto;
+
+                db.SaveChanges();
+            }
+
+            using (var db2 = new db_a7b39f_diego1512Context())
+            {
+                var carrito = new Carrito();
+
+                carrito.IdProducto = idProducto;
+                carrito.Cedula = cedula;
+                carrito.NombreProducto = nombre;
+                carrito.RutaImagen = rutaImagen;
+                carrito.PrecioProducto = precio;
+
+                db2.Carritos.Add(carrito);
+                db2.SaveChanges();
+
+            }
+
         }
 
         public bool Add(Carrito entity)
@@ -54,7 +90,63 @@ namespace BackEnd.DAL
 
             return result;
         }
-       
+        public void EliminarCarrito(long cedula)
+        {
+
+            //context.Carritos.FromSqlRaw($"exec dbo.EliminarProductoCarrito @id ={cedula} ");
+
+
+            using (var db = new db_a7b39f_diego1512Context())
+            {
+
+                var itemsLista = db.Carritos.Where(c => c.Cedula == cedula);
+
+                foreach (var item in itemsLista)
+                {
+                    db.Remove(item);
+                }
+
+                db.SaveChanges();
+
+            }
+
+        }
+
+        public void ComprarCarrito(long cedula, string correo)
+        {
+
+            //context.Carritos.FromSqlRaw($"exec dbo.EliminarProductoCarrito @id ={cedula} ");
+            double montoTotal = 0;
+            string listaProductos = "";
+
+            using (var db = new db_a7b39f_diego1512Context())
+            {
+
+                var itemsLista = db.Carritos.Where(c => c.Cedula == cedula);
+
+                foreach (var item in itemsLista)
+                {
+                    listaProductos += item.NombreProducto + "\n";
+                    montoTotal += item.PrecioProducto;
+                    db.Remove(item);
+                }
+                db.SaveChanges();
+            }
+
+            using (var db2 = new db_a7b39f_diego1512Context())
+            {
+                Factura facturas = new Factura();
+                facturas.Cedula = cedula;
+                facturas.MontoTotal = montoTotal;
+                facturas.Fecha = DateTime.Now.ToString();
+                db2.Facturas.Add(facturas);
+                db2.SaveChanges();
+
+            }
+
+            Correo.enviarCorreo(correo, "Productos comprados:\n" + listaProductos + "\nTotal: " + montoTotal);
+        }
+
         public bool Update(long cedula, int producto, string nombre, string imagen, decimal precio)
         {
             try

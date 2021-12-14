@@ -11,5 +11,9 @@ namespace BackEnd.DAL
     {
         List<Carrito> GetCarrito(long cedula);
         bool Update(long cedula, int producto, string nombre, string imagen, decimal precio);
+        void EliminarCarrito(long cedula);
+        void ComprarCarrito(long cedula, string correo);
+
+        void AgregarAlCarrito(int idProducto, int cedula);
     }
 }

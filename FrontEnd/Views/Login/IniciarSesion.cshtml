@@ -10,6 +10,7 @@
             <form class="m-t-md" asp-controller="Login" asp-action="IniciarSesion" method="post">
 
                 <div class="form-group">
+                    <h1 style="color: red;">@ViewBag.mensaje</h1>
                     <label for="nombreUsuario">
                         Nombre de usuario
                     </label>
@@ -22,9 +23,6 @@
                     </label>
                     @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
                 </div>
-
-                @Html.Label("", (string)ViewBag.mensaje, new { @style = "color: red" })
-                @Html.Label("", (string)ViewBag.mensajeCarrito)
 
                 <br />
                 <output>¿Aún no tienes cuenta? </output>
