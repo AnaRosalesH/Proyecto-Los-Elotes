@@ -46,20 +46,39 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                IEnumerable<Producto> productos;
-                productos = productosDAL.GetAll();
-
-                List<ProductoViewModel> products = new
-                    List<ProductoViewModel>();
-
-                ProductoViewModel productoViewModel;
-                foreach (var item in productos)
+                if (TempData["IdRol"] != null)
                 {
-                    productoViewModel = this.ConvertirProducto(item);
-                    products.Add(productoViewModel);
-                }
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        IEnumerable<Producto> productos;
+                        productos = productosDAL.GetAll();
 
-                return View(products);
+                        List<ProductoViewModel> products = new
+                            List<ProductoViewModel>();
+
+                        ProductoViewModel productoViewModel;
+                        foreach (var item in productos)
+                        {
+                            productoViewModel = this.ConvertirProducto(item);
+                            products.Add(productoViewModel);
+                        }
+
+                        return View(products);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -76,15 +95,34 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                ProductoViewModel producto = new ProductoViewModel { };
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        ProductoViewModel producto = new ProductoViewModel { };
 
-                ICategoriasDAL categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
-                IMarcasDAL marcasDAL = new MarcasDALImpl(new db_a7b39f_diego1512Context());
+                        ICategoriasDAL categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
+                        IMarcasDAL marcasDAL = new MarcasDALImpl(new db_a7b39f_diego1512Context());
 
-                producto.Categorias = categoriasDAL.GetAll().ToList();
-                producto.Marcas = marcasDAL.GetAll().ToList();
+                        producto.Categorias = categoriasDAL.GetAll().ToList();
+                        producto.Marcas = marcasDAL.GetAll().ToList();
 
-                return View(producto);
+                        return View(producto);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
+                
             }
             catch (Exception e)
             {
@@ -137,9 +175,27 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Producto producto = productosDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Producto producto = productosDAL.Get(id);
 
-                return View(producto);
+                        return View(producto);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception)
             {
@@ -155,15 +211,33 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                ProductoViewModel producto = ConvertirProducto(productosDAL.Get(id));
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        ProductoViewModel producto = ConvertirProducto(productosDAL.Get(id));
 
-                ICategoriasDAL categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
-                IMarcasDAL marcasDAL = new MarcasDALImpl(new db_a7b39f_diego1512Context());
+                        ICategoriasDAL categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
+                        IMarcasDAL marcasDAL = new MarcasDALImpl(new db_a7b39f_diego1512Context());
 
-                producto.Categorias = categoriasDAL.GetAll().ToList();
-                producto.Marcas = marcasDAL.GetAll().ToList();
+                        producto.Categorias = categoriasDAL.GetAll().ToList();
+                        producto.Marcas = marcasDAL.GetAll().ToList();
 
-                return View(producto);
+                        return View(producto);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -217,9 +291,27 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Producto producto = productosDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Producto producto = productosDAL.Get(id);
 
-                return View(producto);
+                        return View(producto);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+               
             }
             catch (Exception e)
             {

@@ -37,6 +37,15 @@ namespace BackEnd.DAL
                 db.SaveChanges();
             }
 
+            using (var db1 = new db_a7b39f_diego1512Context())
+            {
+                var restarCantidad = db1.Productos.Where(i => i.IdProducto == idProducto).FirstOrDefault();
+                restarCantidad.CantidadProducto = restarCantidad.CantidadProducto - 1;
+                db1.Update(restarCantidad);
+                db1.SaveChanges();
+
+            }
+
             using (var db2 = new db_a7b39f_diego1512Context())
             {
                 var carrito = new Carrito();
@@ -103,6 +112,15 @@ namespace BackEnd.DAL
 
                 foreach (var item in itemsLista)
                 {
+                    using (var db1 = new db_a7b39f_diego1512Context())
+                    {
+                        var item1 = db1.Productos.Where(i => i.IdProducto == item.IdProducto).FirstOrDefault();
+                        item1.CantidadProducto = item1.CantidadProducto + 1;
+                        db1.Update(item1);
+                        db1.SaveChanges();
+
+                    }
+
                     db.Remove(item);
                 }
 
@@ -118,7 +136,7 @@ namespace BackEnd.DAL
             //context.Carritos.FromSqlRaw($"exec dbo.EliminarProductoCarrito @id ={cedula} ");
             double montoTotal = 0;
             string listaProductos = "";
-
+           
             using (var db = new db_a7b39f_diego1512Context())
             {
 
@@ -128,7 +146,9 @@ namespace BackEnd.DAL
                 {
                     listaProductos += item.NombreProducto + "\n";
                     montoTotal += item.PrecioProducto;
+     
                     db.Remove(item);
+
                 }
                 db.SaveChanges();
             }
@@ -144,7 +164,7 @@ namespace BackEnd.DAL
 
             }
 
-            Correo.enviarCorreo(correo, "Productos comprados:\n" + listaProductos + "\nTotal: " + montoTotal);
+            Correo.enviarCorreo(correo, "Productos comprados:\n" + listaProductos + "\nTotal: ₡" + montoTotal);
         }
 
         public bool Update(long cedula, int producto, string nombre, string imagen, decimal precio)

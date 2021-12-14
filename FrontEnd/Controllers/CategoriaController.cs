@@ -25,11 +25,30 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                IEnumerable<Categoria> categorias;
-                categorias = categoriasDAL.GetAll();
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        IEnumerable<Categoria> categorias;
+                        categorias = categoriasDAL.GetAll();
 
 
-                return View(categorias);
+                        return View(categorias);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -43,7 +62,26 @@ namespace FrontEnd.Controllers
         #region Agregar
         public IActionResult Create()
         {
-            return View();
+            if (TempData["IdRol"] != null)
+            {
+                if (TempData["IdRol"].ToString().Equals("1"))
+                {
+                    return View();
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+                }
+
+            }
+            else
+            {
+                TempData.Keep("IdRol");
+                return RedirectToAction("Index", "Home");
+
+            }
+            
 
         }
 
@@ -71,9 +109,28 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Categoria categoria = categoriasDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Categoria categoria = categoriasDAL.Get(id);
 
-                return View(categoria);
+                        return View(categoria);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -89,9 +146,28 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Categoria categoria = categoriasDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Categoria categoria = categoriasDAL.Get(id);
 
-                return View(categoria);
+                        return View(categoria);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -125,9 +201,28 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Categoria categoria = categoriasDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Categoria categoria = categoriasDAL.Get(id);
 
-                return View(categoria);
+                        return View(categoria);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {

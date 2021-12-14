@@ -25,11 +25,21 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                IEnumerable<Usuario> usuarios;
-                usuarios = usuariosDAL.GetAll();
+                if (TempData["IdRol"] != null)
+                {
+                    IEnumerable<Usuario> usuarios;
+                    usuarios = usuariosDAL.GetAll();
 
 
-                return View(usuarios);
+                    return View(usuarios);
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -72,9 +82,27 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Usuario usuario = usuariosDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Usuario usuario = usuariosDAL.Get(id);
 
-                return View(usuario);
+                        return View(usuario);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -90,16 +118,26 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                int id = (int)TempData["Cedula"];
+                if (TempData["IdRol"] != null)
+                {
+                    int id = (int)TempData["Cedula"];
 
-                TempData.Keep("Cedula");
+                    TempData.Keep("Cedula");
 
-                int idRol = (int)TempData["IdRol"];
-                TempData.Keep("IdRol");
+                    int idRol = (int)TempData["IdRol"];
+                    TempData.Keep("IdRol");
 
-                Usuario usuario = usuariosDAL.Get(id);
+                    Usuario usuario = usuariosDAL.Get(id);
 
-                return View(usuario);
+                    return View(usuario);
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
@@ -145,9 +183,27 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Usuario usuario = usuariosDAL.Get(id);
+                if (TempData["IdRol"] != null)
+                {
+                    if (TempData["IdRol"].ToString().Equals("1"))
+                    {
+                        Usuario usuario = usuariosDAL.Get(id);
 
-                return View(usuario);
+                        return View(usuario);
+                    }
+                    else
+                    {
+                        TempData.Keep("IdRol");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
