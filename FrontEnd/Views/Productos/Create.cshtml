@@ -137,7 +137,6 @@
 
     <script>
         $(document).ready(function () {
-            alert('asd');
             $('input[type="file"]').change(function (e) {
                 var fileName = e.target.files[0].name;
                 document.getElementById("RutaImagen").value = "/img/" + fileName;

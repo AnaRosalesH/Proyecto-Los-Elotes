@@ -27,11 +27,23 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                IEnumerable<Direccion> direcciones;
-                direcciones = direccionesDAL.GetAll();
+                if (TempData["IdRol"] != null)
+                {
+                    IEnumerable<Direccion> direcciones;
+                    direcciones = direccionesDAL.GetAll();
 
 
-                return View(direcciones);
+                    return View(direcciones);
+
+
+                }
+                else
+                {
+                    TempData.Keep("IdRol");
+                    return RedirectToAction("Index", "Home");
+
+                }
+                
             }
             catch (Exception e)
             {
