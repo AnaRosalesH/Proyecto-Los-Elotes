@@ -25,11 +25,6 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult IniciarSesion(Usuario usr)
         {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.mensaje = "Error al iniciar sesión.";
-                return View();
-            }
 
             using (var db = new db_a7b39f_diego1512Context())
             {
@@ -50,6 +45,9 @@ namespace FrontEnd.Controllers
 
                     return RedirectToAction("Index", "Home");
 
+                } else
+                {
+                    ViewBag.mensaje = "Error al iniciar sesión.";
                 }
             }
 

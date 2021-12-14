@@ -4,9 +4,7 @@
         url: '/Carrito/AgregarCarrito',
         data:
         {
-            IdProducto: IdProducto
-            IdProducto: idProducto
-
+            idProducto: idProducto
         },
         dataType: 'json',
         success: function (data) {
@@ -43,7 +41,6 @@
         }
     });
 }
-
 
 
 function ComprarProducto(idProducto) {

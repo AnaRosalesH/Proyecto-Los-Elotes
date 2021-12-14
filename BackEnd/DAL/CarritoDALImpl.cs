@@ -18,6 +18,41 @@ namespace BackEnd.DAL
             context = _context;
         }
 
+
+        public void AgregarAlCarrito(int idProducto, int cedula)
+        {
+            string nombre;
+            string rutaImagen;
+            double precio;
+
+            using (var db = new db_a7b39f_diego1512Context())
+            {
+                var productoDatos = db.Productos.Where(p => p.IdProducto == idProducto).FirstOrDefault();
+
+                nombre = productoDatos.NombreProducto;
+                rutaImagen = productoDatos.RutaImagen;
+                precio = productoDatos.PrecioProducto;
+
+                db.SaveChanges();
+            }
+
+            using (var db2 = new db_a7b39f_diego1512Context())
+            {
+                var carrito = new Carrito();
+
+                carrito.IdProducto = idProducto;
+                carrito.Cedula = cedula;
+                carrito.NombreProducto = nombre;
+                carrito.RutaImagen = rutaImagen;
+                carrito.PrecioProducto = precio;
+
+                db2.Carritos.Add(carrito);
+                db2.SaveChanges();
+
+            }
+
+        }
+
         public bool Add(Carrito entity)
         {
             try

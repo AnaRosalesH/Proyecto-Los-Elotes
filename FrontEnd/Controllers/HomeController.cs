@@ -15,6 +15,7 @@ namespace FrontEnd.Controllers
     {
 
         private IProductosDAL homeDAL;
+        private ICarritoDAL carro;
 
         #region Constructor
         public HomeController()
@@ -35,6 +36,8 @@ namespace FrontEnd.Controllers
             }
 
             TempData.Keep("IdRol");
+
+        
 
             return View(productos);
         }
