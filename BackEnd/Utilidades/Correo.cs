@@ -18,7 +18,7 @@ namespace FrontEnd.Utilidades
             email.From.Add(MailboxAddress.Parse("TiendaLosElotes@mail.com"));
             email.To.Add(MailboxAddress.Parse(correo));
             email.Subject = "¡Gracias por su compra!";
-            email.Body = new TextPart(TextFormat.Plain) { Text = mensajeCorreo };
+            email.Body = new TextPart(TextFormat.Plain) { Text = mensajeCorreo + "\n\nLe contactaremos con la mayor brevedad posible para coordinar el pago de/los producto(s) y su entrega." };
 
             using var smtp = new SmtpClient();
             smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
