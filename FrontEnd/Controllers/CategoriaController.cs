@@ -19,14 +19,24 @@ namespace FrontEnd.Controllers
             categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
         }
         #endregion
+
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Categoria> categorias;
-            categorias = categoriasDAL.GetAll();
+            try
+            {
+                IEnumerable<Categoria> categorias;
+                categorias = categoriasDAL.GetAll();
 
 
-            return View(categorias);
+                return View(categorias);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
@@ -40,9 +50,18 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Create(Categoria categoria)
         {
-            categoriasDAL.Add(categoria);
+            try
+            {
+                categoriasDAL.Add(categoria);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
@@ -50,27 +69,53 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Categoria categoria = categoriasDAL.Get(id);
+            try
+            {
+                Categoria categoria = categoriasDAL.Get(id);
 
-            return View(categoria);
+                return View(categoria);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+         
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
-            Categoria categoria = categoriasDAL.Get(id);
+            try
+            {
+                Categoria categoria = categoriasDAL.Get(id);
 
-            return View(categoria);
+                return View(categoria);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
 
         [HttpPost]
         public IActionResult Edit(Categoria categoria)
         {
+            try
+            {
+                categoriasDAL.Update(categoria);
 
-            categoriasDAL.Update(categoria);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
 
-            return RedirectToAction("Index");
+                throw;
+            }
+            
         }
         #endregion
 
@@ -78,17 +123,34 @@ namespace FrontEnd.Controllers
 
         public IActionResult Delete(int id)
         {
+            try
+            {
+                Categoria categoria = categoriasDAL.Get(id);
 
-            Categoria categoria = categoriasDAL.Get(id);
+                return View(categoria);
+            }
+            catch (Exception e)
+            {
 
-            return View(categoria);
+                throw;
+            }
+         
         }
 
         [HttpPost]
         public IActionResult Delete(Categoria categoria)
         {
-            categoriasDAL.Remove(categoria);
-            return RedirectToAction("Index");
+            try
+            {
+                categoriasDAL.Remove(categoria);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
     }
