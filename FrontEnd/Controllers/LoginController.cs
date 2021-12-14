@@ -25,33 +25,45 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult IniciarSesion(Usuario usr)
         {
-
-            using (var db = new db_a7b39f_diego1512Context())
+            try
             {
-                var usuario = (from x in db.Usuarios where x.NombreUsuario == usr.NombreUsuario &&
-                               x.Contrasena == usr.Contrasena select x).FirstOrDefault();
-
-                if (usuario != null)
+                using (var db = new db_a7b39f_diego1512Context())
                 {
+                    var usuario = (from x in db.Usuarios
+                                   where x.NombreUsuario == usr.NombreUsuario &&
+             x.Contrasena == usr.Contrasena
+                                   select x).FirstOrDefault();
 
-                    TempData["DatosUsuario"] = "siHay";
+                    if (usuario != null)
+                    {
 
-                    TempData["Cedula"] = (int)usuario.Cedula; 
-                    TempData["NombreUsuario"] = usuario.NombreUsuario;
-                    TempData["Correo"] = usuario.Correo;
-                    TempData["Nombre"] = usuario.Nombre;
-                    TempData["Apellido"] = usuario.Apellido;
-                    TempData["IdRol"] = usuario.IdRol;
+                        TempData["DatosUsuario"] = "siHay";
 
-                    return RedirectToAction("Index", "Home");
+                        TempData["Cedula"] = (int)usuario.Cedula;
+                        TempData["NombreUsuario"] = usuario.NombreUsuario;
+                        TempData["Correo"] = usuario.Correo;
+                        TempData["Nombre"] = usuario.Nombre;
+                        TempData["Apellido"] = usuario.Apellido;
+                        TempData["IdRol"] = usuario.IdRol;
 
-                } else
-                {
-                    ViewBag.mensaje = "Error al iniciar sesión.";
+                        return RedirectToAction("Index", "Home");
+
+                    }
+                    else
+                    {
+                        ViewBag.mensaje = "Error al iniciar sesión.";
+                    }
                 }
+
+                return View();
+            }
+            catch (Exception e)
+            {
+
+                throw;
             }
 
-            return View();
+           
         }
 
         public IActionResult CerrarSesion()

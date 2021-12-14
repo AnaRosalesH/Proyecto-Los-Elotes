@@ -26,20 +26,29 @@ namespace FrontEnd.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Producto> productos;
-            productos = homeDAL.GetAll();
-
-            if (TempData["IdRol"] == null)
+            try
             {
-                TempData["IdRol"] = 3;
-                
+                IEnumerable<Producto> productos;
+                productos = homeDAL.GetAll();
+
+                if (TempData["IdRol"] == null)
+                {
+                    TempData["IdRol"] = 3;
+
+                }
+
+                TempData.Keep("IdRol");
+
+
+
+                return View(productos);
             }
+            catch (Exception e)
+            {
 
-            TempData.Keep("IdRol");
-
-        
-
-            return View(productos);
+                throw;
+            }
+            
         }
 
         public IActionResult Privacy()

@@ -25,14 +25,48 @@ namespace FrontEnd.Controllers
         }
         #endregion
 
+        #region ConvertirViewModel
+        private ProductoViewModel ConvertirProducto(Producto producto)
+        {
+            return new ProductoViewModel
+            {
+                IdProducto = producto.IdProducto,
+                NombreProducto = producto.NombreProducto,
+                IdCategoria = producto.IdCategoria,
+                IdMarca = producto.IdMarca,
+                RutaImagen = producto.RutaImagen,
+                PrecioProducto = producto.PrecioProducto,
+                CantidadProducto = producto.CantidadProducto
+            };
+        }
+       #endregion
+
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Producto> productos;
-            productos = productosDAL.GetAll();
+            try
+            {
+                IEnumerable<Producto> productos;
+                productos = productosDAL.GetAll();
 
+                List<ProductoViewModel> products = new
+                    List<ProductoViewModel>();
+
+                ProductoViewModel productoViewModel;
+                foreach (var item in productos)
+                {
+                    productoViewModel = this.ConvertirProducto(item);
+                    products.Add(productoViewModel);
+                }
+
+                return View(products);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
             
-            return View(productos);
         }
         #endregion
 
@@ -40,34 +74,59 @@ namespace FrontEnd.Controllers
         #region Agregar
         public IActionResult Create()
         {
-            return View();
+            try
+            {
+                ProductoViewModel producto = new ProductoViewModel { };
+
+                ICategoriasDAL categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
+                IMarcasDAL marcasDAL = new MarcasDALImpl(new db_a7b39f_diego1512Context());
+
+                producto.Categorias = categoriasDAL.GetAll().ToList();
+                producto.Marcas = marcasDAL.GetAll().ToList();
+
+                return View(producto);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
 
         }
 
         [HttpPost]
         public IActionResult Create(Producto producto, List<IFormFile> files)
         {
-
-            var file = Request.Form.Files[0];
-            var root = Path.Combine("wwwroot");
-            var folderName = Path.Combine("img");
-            var PathToSave = Path.Combine(Directory.GetCurrentDirectory(), root, folderName);
-       
-            if (file.Length > 0)
+            try
             {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(PathToSave, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
+                var file = Request.Form.Files[0];
+                var root = Path.Combine("wwwroot");
+                var folderName = Path.Combine("img");
+                var PathToSave = Path.Combine(Directory.GetCurrentDirectory(), root, folderName);
+
+                if (file.Length > 0)
                 {
-                    file.CopyTo(stream);
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(PathToSave, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
                 }
 
+                productosDAL.Add(producto);
+
+
+                return RedirectToAction("Index");
             }
+            catch (Exception e)
+            {
 
-            productosDAL.Add(producto);
-
-
-            return RedirectToAction("Index");
+                throw;
+            }
+            
         }
         #endregion
 
@@ -76,45 +135,76 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Producto producto = productosDAL.Get(id);
+            try
+            {
+                Producto producto = productosDAL.Get(id);
 
-            return View(producto);
+                return View(producto);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
+            try
+            {
+                ProductoViewModel producto = ConvertirProducto(productosDAL.Get(id));
 
+                ICategoriasDAL categoriasDAL = new CategoriasDALImpl(new db_a7b39f_diego1512Context());
+                IMarcasDAL marcasDAL = new MarcasDALImpl(new db_a7b39f_diego1512Context());
 
-            Producto producto = productosDAL.Get(id);
+                producto.Categorias = categoriasDAL.GetAll().ToList();
+                producto.Marcas = marcasDAL.GetAll().ToList();
 
-            return View(producto);
+                return View(producto);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Edit(Producto producto, List<IFormFile> files)
         {
-
-            var file = Request.Form.Files[0];
-            var root = Path.Combine("wwwroot");
-            var folderName = Path.Combine("img");
-            var PathToSave = Path.Combine(Directory.GetCurrentDirectory(), root, folderName);
-
-            if (file.Length > 0)
+            try
             {
-                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(PathToSave, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
+                var file = Request.Form.Files[0];
+                var root = Path.Combine("wwwroot");
+                var folderName = Path.Combine("img");
+                var PathToSave = Path.Combine(Directory.GetCurrentDirectory(), root, folderName);
+
+                if (file.Length > 0)
                 {
-                    file.CopyTo(stream);
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(PathToSave, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
                 }
 
+                productosDAL.Update(producto);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
             }
 
-            productosDAL.Update(producto);
-
-            return RedirectToAction("Index");
+            
         }
 
 
@@ -125,17 +215,34 @@ namespace FrontEnd.Controllers
 
         public IActionResult Delete(int id)
         {
+            try
+            {
+                Producto producto = productosDAL.Get(id);
 
-            Producto producto = productosDAL.Get(id);
+                return View(producto);
+            }
+            catch (Exception e)
+            {
 
-            return View(producto);
+                throw;
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Delete(Producto producto)
         {
-            productosDAL.Remove(producto);
-            return RedirectToAction("Index");
+            try
+            {
+                productosDAL.Remove(producto);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
     }

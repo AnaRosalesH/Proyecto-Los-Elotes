@@ -103,12 +103,21 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult AgregarCarrito(int idProducto)
         {
-            int cedula = (int)TempData["Cedula"];
-            TempData.Keep("Cedula");
+            try
+            {
+                int cedula = (int)TempData["Cedula"];
+                TempData.Keep("Cedula");
 
-            carritoDAL.AgregarAlCarrito(idProducto, cedula);
+                carritoDAL.AgregarAlCarrito(idProducto, cedula);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

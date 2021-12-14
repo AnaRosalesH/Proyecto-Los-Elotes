@@ -19,14 +19,24 @@ namespace FrontEnd.Controllers
             usuariosDAL = new UsuarioDALImpl(new db_a7b39f_diego1512Context());
         }
         #endregion
+
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Usuario> usuarios;
-            usuarios = usuariosDAL.GetAll();
+            try
+            {
+                IEnumerable<Usuario> usuarios;
+                usuarios = usuariosDAL.GetAll();
 
 
-            return View(usuarios);
+                return View(usuarios);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
 
@@ -40,10 +50,19 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Create(Usuario usuario)
         {
-            usuario.IdRol = 2;
-            usuariosDAL.Add(usuario);
+            try
+            {
+                usuario.IdRol = 2;
+                usuariosDAL.Add(usuario);
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
 
@@ -51,45 +70,72 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Usuario usuario = usuariosDAL.Get(id);
+            try
+            {
+                Usuario usuario = usuariosDAL.Get(id);
 
-            return View(usuario);
+                return View(usuario);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
         #region Editar
         public IActionResult Edit()
         {
-            int id = (int)TempData["Cedula"];
+            try
+            {
+                int id = (int)TempData["Cedula"];
 
-            TempData.Keep("Cedula");
+                TempData.Keep("Cedula");
 
-            int idRol = (int)TempData["IdRol"];
-            TempData.Keep("IdRol");
+                int idRol = (int)TempData["IdRol"];
+                TempData.Keep("IdRol");
 
-            Usuario usuario = usuariosDAL.Get(id);
+                Usuario usuario = usuariosDAL.Get(id);
 
-            return View(usuario);
+                return View(usuario);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Edit(Usuario usuario)
         {
-
-            if ((int)TempData["IdRol"] == 1)
+            try
             {
-                usuario.IdRol = 1;
-            } else
-            {
-                usuario.IdRol = 2;
-            }
+                if ((int)TempData["IdRol"] == 1)
+                {
+                    usuario.IdRol = 1;
+                }
+                else
+                {
+                    usuario.IdRol = 2;
+                }
 
-            TempData.Keep("IdRol");
-           
+                TempData.Keep("IdRol");
+
 
                 usuariosDAL.Update(usuario);
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
@@ -97,17 +143,33 @@ namespace FrontEnd.Controllers
 
         public IActionResult Delete(int id)
         {
+            try
+            {
+                Usuario usuario = usuariosDAL.Get(id);
 
-            Usuario usuario = usuariosDAL.Get(id);
+                return View(usuario);
+            }
+            catch (Exception e)
+            {
 
-            return View(usuario);
+                throw;
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Delete(Usuario usuario)
         {
-            usuariosDAL.Remove(usuario);
-            return RedirectToAction("Index");
+            try
+            {
+                usuariosDAL.Remove(usuario);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
         }
         #endregion
     }

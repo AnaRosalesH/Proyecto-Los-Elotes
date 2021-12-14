@@ -22,11 +22,20 @@ namespace FrontEnd.Controllers
         #region Lista
         public IActionResult Index()
         {
-            IEnumerable<Marca> marcas;
-            marcas = marcasDAL.GetAll();
+            try
+            {
+                IEnumerable<Marca> marcas;
+                marcas = marcasDAL.GetAll();
 
-            
-            return View(marcas);
+
+                return View(marcas);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
 
@@ -41,9 +50,18 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Create(Marca marca)
         {
-            marcasDAL.Add(marca);
+            try
+            {
+                marcasDAL.Add(marca);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
 
@@ -52,27 +70,52 @@ namespace FrontEnd.Controllers
 
         public IActionResult Details(int id)
         {
-            Marca marca = marcasDAL.Get(id);
+            try
+            {
+                Marca marca = marcasDAL.Get(id);
 
-            return View(marca);
+                return View(marca);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+           
         }
         #endregion
 
         #region Editar
         public IActionResult Edit(int id)
         {
-            Marca marca = marcasDAL.Get(id);
+            try
+            {
+                Marca marca = marcasDAL.Get(id);
 
-            return View(marca);
+                return View(marca);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Edit(Marca marca)
         {
+            try
+            {
+                marcasDAL.Update(marca);
 
-            marcasDAL.Update(marca);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
 
-            return RedirectToAction("Index");
+                throw;
+            }         
         }
 
 
@@ -83,17 +126,34 @@ namespace FrontEnd.Controllers
 
         public IActionResult Delete(int id)
         {
+            try
+            {
+                Marca marca = marcasDAL.Get(id);
 
-            Marca marca = marcasDAL.Get(id);
+                return View(marca);
+            }
+            catch (Exception e)
+            {
 
-            return View(marca);
+                throw;
+            }
+           
         }
 
         [HttpPost]
         public IActionResult Delete(Marca marca)
         {
-            marcasDAL.Remove(marca);
-            return RedirectToAction("Index");
+            try
+            {
+                marcasDAL.Remove(marca);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         #endregion
     }
