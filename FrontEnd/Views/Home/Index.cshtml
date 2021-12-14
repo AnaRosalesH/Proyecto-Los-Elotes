@@ -37,9 +37,15 @@
                             <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
                                onclick="AgregarCarrito(@item.IdProducto)">Añadir Carrito</a>
                         </div>-->
-                        <div class="text-center">
+                        @*<div class="text-center">
                             <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%">Añadir Carrito</a>
-                        </div>
+                        </div>*@
+
+                        <div class="text-center">
+                                <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
+                                   onclick="AgregarCarrito(@item.IdProducto)">Añadir Carrito</a>
+                            </div>
+
                     }
                     else
                     {
@@ -58,3 +64,31 @@
     }
 
 </div>
+
+@section scripts{ 
+
+    <script>
+        function AgregarCarrito(IdProducto) {
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '/Carrito/AgregarCarrito', 
+                    data:
+                    {
+                        IdProducto: IdProducto
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        
+                        alert('producto agregado')
+                    },
+                    error: function () {
+                        
+                        alert('Producto agregado correctamente 7w7')
+                    }
+                });
+            }
+        }
+    </script>
+
+}

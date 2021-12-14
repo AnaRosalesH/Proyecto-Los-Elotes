@@ -83,12 +83,14 @@ namespace FrontEnd.Controllers
 
         public IActionResult ComprarCarrito()
         {
+            string correo = (string)TempData["Correo"];
+            TempData.Keep("Correo");
 
             try
             {
                 int cedula = (int)TempData["Cedula"];
                 TempData.Keep("Cedula");
-                carritoDAL.ComprarCarrito(cedula);
+                carritoDAL.ComprarCarrito(cedula, correo);
                 return RedirectToAction("Index", "Home");
 
             }
@@ -96,6 +98,17 @@ namespace FrontEnd.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        [HttpPost]
+        public IActionResult AgregarCarrito(int idProducto)
+        {
+            int cedula = (int)TempData["Cedula"];
+            TempData.Keep("Cedula");
+
+            carritoDAL.AgregarAlCarrito(idProducto, cedula);
+
+            return RedirectToAction("Index");
         }
     }
 }
