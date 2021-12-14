@@ -5,55 +5,154 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="container-fluid">
 
-<h4>Producto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NombreProducto" class="control-label"></label>
-                <input asp-for="NombreProducto" class="form-control" />
-                <span asp-validation-for="NombreProducto" class="text-danger"></span>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+
+            <br />
+            <h4>Agregar nuevo producto</h4>
+
+            @using (Html.BeginForm("Create", "Productos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+
+                <div class="form-horizontal">
+
+                    <br />
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NombreProducto, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NombreProducto, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @*@Html.EditorFor(model => model.nombreProducto, new { htmlAttributes = new { @class = "form-control", @type = "hidden" } })*@
+                            @Html.ValidationMessageFor(model => model.NombreProducto, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdCategoria, "Categoría", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.IdCategoria, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
+
+                            @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdMarca, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.IdMarca, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
+
+                            @Html.ValidationMessageFor(model => model.IdMarca, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RutaImagen, "Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+
+                            <input type="file" name="file" />
+                            @Html.EditorFor(model => model.RutaImagen, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+
+                            @Html.ValidationMessageFor(model => model.RutaImagen, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PrecioProducto, "Precio", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PrecioProducto, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
+                            @Html.ValidationMessageFor(model => model.PrecioProducto, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CantidadProducto, "Cantidad", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CantidadProducto, new { htmlAttributes = new { @class = "form-control", @required = "required", onkeypress = "return NumberOnly()" } })
+                            @Html.ValidationMessageFor(model => model.CantidadProducto, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Agregar producto" class="btn btn-success" style="width: 100%;" />
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+
+
+
+        </div>
+
+        <div class="col-sm">
+
+
+
+            <div class="jumbotron mt-5 mr-5">
+                <h2>
+                    Agregar nuevo producto
+
+                </h2>
+                <p>
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">¡Usted esta a punto de agregar un nuevo producto!</h4>
+                        <p>
+                            Recuerde intentar no cometer faltas ortograficas y verificar que tiene el permiso y el stock necesario para agregar un producto.
+                            No quisieramos tener stock fantasma como en ExtremeTech, nuestros clientes son lo mas importante para nosotros.
+                        </p>
+
+                        <hr>
+                        <p class="mb-0">Cuando este listo solo presione el boton agregar producto, si requiere ayuda, contacte con un administrador más experimentado.</p>
+                    </div>
+                </p>
+                <div>
+                    <br />
+                    <div class="col-md-offset-2 col-md-5">
+                        @Html.ActionLink("Regresar a la tabla", "Index", null,
+                              new { @class = "btn btn-warning", style = "width: 100%;" })
+                    </div>
+                    <br />
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="IdCategoria" class="control-label"></label>
-                <input asp-for="IdCategoria" class="form-control" />
-                <span asp-validation-for="IdCategoria" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdMarca" class="control-label"></label>
-                <input asp-for="IdMarca" class="form-control" />
-                <span asp-validation-for="IdMarca" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RutaImagen" class="control-label"></label>
-                <input asp-for="RutaImagen" class="form-control" />
-                <span asp-validation-for="RutaImagen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecioProducto" class="control-label"></label>
-                <input asp-for="PrecioProducto" class="form-control" />
-                <span asp-validation-for="PrecioProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CantidadProducto" class="control-label"></label>
-                <input asp-for="CantidadProducto" class="form-control" />
-                <span asp-validation-for="CantidadProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+
+
+
+        </div>
+
+
     </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section scripts {
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('input[type="file"]').change(function (e) {
+                var fileName = e.target.files[0].name;
+                document.getElementById("rutaImagen").value = "/img/" + fileName;
+
+            });
+        });
+
+        function NumberOnly() {
+            var AsciiValue = event.keyCode
+            if (AsciiValue >= 48 && AsciiValue <= 57)
+                event.returnValue = true;
+            else
+                event.returnValue = false;
+        }
+    </script>
+
 }
