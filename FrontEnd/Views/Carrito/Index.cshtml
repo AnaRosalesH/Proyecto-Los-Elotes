@@ -5,6 +5,8 @@
 @{ ViewBag.Title = "Carrito";
     Layout = "~/Views/Shared/_Layout.cshtml"; }
 
+
+
 <!-- Section-->
 <div class="DivPadre d-flex justify-content-center">
     @foreach (var item in Model)
@@ -22,14 +24,6 @@
                 </div>
 
             </div>
-
-
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent row">
-                <div class="col-md-12">
-                    <div class="text-center" onclick="EliminarCarrito(@item.IdProducto)"><a class="btn btn-outline-dark mt-auto" style="width:100%">Eliminar 1</a></div>
-                </div>
-            </div>
         </div>
     }
 
@@ -37,9 +31,60 @@
 
 
 
+<div class="row d-flex justify-content-center">
+    <div class="col-md-3">
+        <div class="text-center" onclick="EliminarCarrito()"><a class="btn btn-danger" style="width:100%">Eliminar Items</a></div>
+    </div>
+    <div class="col-md-3">
+        <div class="text-center" onclick="ComprarCarrito()"><a class="btn btn-success" style="width:100%">Comprar Items</a></div>
+    </div>
+</div>
+
+
 
 
 @section Scripts
 {
     <script src="~/js/ProductosJS.js"></script>
+
+    <script>
+        function EliminarCarrito() {
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '/Carrito/EliminarCarrito',
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = "/Home/Index";
+                        alert('¡Productos eliminados con exito!')
+                    },
+                    error: function () {
+                        window.location.href = "/Home/Index";
+                        alert('¡Productos eliminados con exito!')
+                    }
+                });
+            }
+        }
+    </script>
+
+    <script>
+        function ComprarCarrito() {
+            {
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Carrito/ComprarCarrito',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert('¡Productos adquiridos con exito!')
+                        window.location.href = "/Home/Index";
+                    },
+                    error: function () {
+                        alert('¡Productos adquiridos con exito!')
+                        window.location.href = "/Home/Index";
+                    }
+                });
+            }
+        }
+    </script>
 }
