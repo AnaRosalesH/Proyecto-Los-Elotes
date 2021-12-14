@@ -5,9 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h3 style="color:crimson;">@ViewBag.NoHayProductos</h3>
-</div>
+
 
 <div class="DivPadre d-flex justify-content-center">
     @foreach (var item in Model)
@@ -28,29 +26,30 @@
 
 
                 <div class="col-md-12">
-                    @if (TempData["DatosUsuario"] != null)
+                    @if (item.CantidadProducto <= 0)
                     {
-                        TempData.Keep("DatosUsuario");
-                        <!--<div class="text-center">
-                            <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
-                               onclick="AgregarCarrito(@item.IdProducto)">Añadir Carrito</a>
-                        </div>-->
-                        @*<div class="text-center">
-                            <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%">Añadir Carrito</a>
-                        </div>*@
-
                         <div class="text-center">
-                                <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
-                                   onclick="AgregarCarrito(@item.IdProducto)">Añadir Carrito</a>
-                            </div>
-
+                            <h3 style="color:crimson;">¡Sin existencias!</h3>
+                        </div>
                     }
                     else
                     {
-                        <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" style="width:100%" href="\Login\IniciarSesion">Añadir Carrito</a>
-                        </div>
+                        @if (TempData["DatosUsuario"] != null)
+                        {
+                            TempData.Keep("DatosUsuario");
+                            <div class="text-center">
+                                <a id="agregarCarrito" class="btn btn-outline-dark mt-auto" style="width:100%"
+                                   onclick="AgregarCarrito(@item.IdProducto)">Añadir Carrito</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto" style="width:100%" href="\Login\IniciarSesion">Añadir Carrito</a>
+                            </div>
+                        }
                     }
+
                 </div>
             </div>
             <div id="alertPrueba-@item.IdProducto" class="alert alert-success collapse">
@@ -78,11 +77,13 @@
                     dataType: 'json',
                     success: function (data) {
                         
-                        alert('producto agregado')
+                        alert('¡Producto agregado correctamente!')
+                        location.reload();
                     },
                     error: function () {
                         
                         alert('¡Producto agregado correctamente!')
+                        location.reload();
                     }
                 });
             }
