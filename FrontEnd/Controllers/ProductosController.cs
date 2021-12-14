@@ -1,10 +1,13 @@
 ﻿using BackEnd.DAL;
 using BackEnd.Entities;
 using FrontEnd.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace FrontEnd.Controllers
@@ -42,9 +45,27 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Producto producto)
+        public IActionResult Create(Producto producto, List<IFormFile> files)
         {
+
+            var file = Request.Form.Files[0];
+            var root = Path.Combine("wwwroot");
+            var folderName = Path.Combine("img");
+            var PathToSave = Path.Combine(Directory.GetCurrentDirectory(), root, folderName);
+       
+            if (file.Length > 0)
+            {
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(PathToSave, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+            }
+
             productosDAL.Add(producto);
+
 
             return RedirectToAction("Index");
         }
@@ -64,14 +85,32 @@ namespace FrontEnd.Controllers
         #region Editar
         public IActionResult Edit(int id)
         {
+
+
             Producto producto = productosDAL.Get(id);
 
             return View(producto);
         }
 
         [HttpPost]
-        public IActionResult Edit(Producto producto)
+        public IActionResult Edit(Producto producto, List<IFormFile> files)
         {
+
+            var file = Request.Form.Files[0];
+            var root = Path.Combine("wwwroot");
+            var folderName = Path.Combine("img");
+            var PathToSave = Path.Combine(Directory.GetCurrentDirectory(), root, folderName);
+
+            if (file.Length > 0)
+            {
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(PathToSave, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+            }
 
             productosDAL.Update(producto);
 

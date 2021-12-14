@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace BackEnd.DAL
 {
-   public class UsuarioDALImpl : IUsuarioDAL
+    public class DireccionDALImpl : IDireccionDAL
     {
+
+
         private db_a7b39f_diego1512Context context;
-        public UsuarioDALImpl(db_a7b39f_diego1512Context _context)
+        public DireccionDALImpl(db_a7b39f_diego1512Context _context)
         {
             context = _context;
         }
 
-        public bool Add(Usuario entity)
+        public bool Add(Direccion entity)
         {
             try
             {
-                using (UnidadDeTrabajoLong<Usuario> unidad = new UnidadDeTrabajoLong<Usuario>(context))
+                using (UnidadDeTrabajo<Direccion> unidad = new UnidadDeTrabajo<Direccion>(context))
                 {
                     unidad.genericDAL.Add(entity);
                     return unidad.Complete();
@@ -34,20 +36,20 @@ namespace BackEnd.DAL
 
         }
 
-        public void AddRange(IEnumerable<Usuario> entities)
+        public void AddRange(IEnumerable<Direccion> entities)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Usuario> Find(Expression<Func<Usuario, bool>> predicate)
+        public IEnumerable<Direccion> Find(Expression<Func<Direccion, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public Usuario Get(long id)
+        public Direccion Get(int id)
         {
-            Usuario result;
-            using (UnidadDeTrabajoLong<Usuario> unidad = new UnidadDeTrabajoLong<Usuario>(context))
+            Direccion result;
+            using (UnidadDeTrabajo<Direccion> unidad = new UnidadDeTrabajo<Direccion>(context))
             {
                 result = unidad.genericDAL.Get(id);
 
@@ -55,21 +57,22 @@ namespace BackEnd.DAL
             return result;
         }
 
-        public IEnumerable<Usuario> GetAll()
+        public IEnumerable<Direccion> GetAll()
         {
-            List<Usuario> usuarios;
-            using (UnidadDeTrabajo<Usuario> Unidad = new UnidadDeTrabajo<Usuario>(context))
+            List<Direccion> direction;
+
+            using (UnidadDeTrabajo<Direccion> Unidad = new UnidadDeTrabajo<Direccion>(context))
             {
-                usuarios = Unidad.genericDAL.GetAll().ToList();
+                direction = Unidad.genericDAL.GetAll().ToList();
             }
-            return usuarios;
+            return direction;
         }
 
-        public bool Remove(Usuario entity)
+        public bool Remove(Direccion entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Usuario> unidad = new UnidadDeTrabajo<Usuario>(context))
+                using (UnidadDeTrabajo<Direccion> unidad = new UnidadDeTrabajo<Direccion>(context))
                 {
                     unidad.genericDAL.Remove(entity);
                     return unidad.Complete();
@@ -83,21 +86,21 @@ namespace BackEnd.DAL
             }
         }
 
-        public void RemoveRange(IEnumerable<Usuario> entities)
+        public void RemoveRange(IEnumerable<Direccion> entities)
         {
             throw new NotImplementedException();
         }
 
-        public Usuario SingleOrDefault(Expression<Func<Usuario, bool>> predicate)
+        public Direccion SingleOrDefault(Expression<Func<Direccion, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(Usuario entity)
+        public bool Update(Direccion entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Usuario> unidad = new UnidadDeTrabajo<Usuario>(context))
+                using (UnidadDeTrabajo<Direccion> unidad = new UnidadDeTrabajo<Direccion>(context))
                 {
                     unidad.genericDAL.Update(entity);
                     return unidad.Complete();
@@ -110,6 +113,5 @@ namespace BackEnd.DAL
                 return false;
             }
         }
-
     }
 }

@@ -15,6 +15,7 @@ namespace FrontEnd.Controllers
     {
 
         private IProductosDAL homeDAL;
+        private ICarritoDAL carro;
 
         #region Constructor
         public HomeController()
@@ -28,6 +29,15 @@ namespace FrontEnd.Controllers
             IEnumerable<Producto> productos;
             productos = homeDAL.GetAll();
 
+            if (TempData["IdRol"] == null)
+            {
+                TempData["IdRol"] = 3;
+                
+            }
+
+            TempData.Keep("IdRol");
+
+        
 
             return View(productos);
         }

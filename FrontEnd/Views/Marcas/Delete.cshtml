@@ -4,30 +4,80 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Eliminar</h1>
 
-<h3>¿Desea eliminar esto?</h3>
-<div>
-    <h4>Marca</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdMarca)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdMarca)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MarcaProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MarcaProducto)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        @Html.HiddenFor(model => model.IdMarca)
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index">Regresar</a>
-    </form>
+<div class="container-fluid">
+
+
+    <div class="row">
+     
+        <div class="col-sm-4">
+
+            <br />
+
+            <h4>¿Desea eliminar esto?</h4>
+
+            <br />
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-sm-6">
+                            <b>Id Marca</b>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(model => model.IdMarca)
+                        </div>
+                        <div class="col-md-8">
+                            <b>Marca Producto</b>
 </div>
+                        <div class="col-md-4">
+                            @Html.DisplayFor(model => model.MarcaProducto)
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <form asp-action="Delete">
+                        @Html.HiddenFor(model => model.IdMarca)
+                        <input type="submit" value="Eliminar" class="btn btn-danger" style="width:100%"/>
+
+                    </form>
+                </div>
+            
+        </div>
+
+        <div class="col-sm">
+
+
+
+            <div class="jumbotron mt-5 mr-5">
+                <h2>
+                    Eliminar marca
+
+                </h2>
+                <p>
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">¡Usted esta a punto de eliminar una marca!</h4>
+                        <p>
+                            Recuerde asegurarse de que esta eliminando la marca adecuada y verificar que tiene el permiso y el stock necesario para eliminar una marca.
+                        </p>
+
+                        <hr>
+                        <p class="mb-0">Cuando este listo solo presione el boton eliminar, si requiere ayuda, contacte con un administrador mas experimentado.</p>
+                    </div>
+                </p>
+                <div class="form-group">
+
+                    <div class="col-md-offset-2 col-md-5">
+                        @Html.ActionLink("Regresar a la tabla", "Index", null,
+                              new { @class = "btn btn-warning", style = "width: 100%;" })
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>

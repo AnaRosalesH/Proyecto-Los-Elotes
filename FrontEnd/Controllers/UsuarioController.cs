@@ -40,9 +40,10 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public IActionResult Create(Usuario usuario)
         {
+            usuario.IdRol = 2;
             usuariosDAL.Add(usuario);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 
@@ -57,8 +58,15 @@ namespace FrontEnd.Controllers
         #endregion
 
         #region Editar
-        public IActionResult Edit(int id)
+        public IActionResult Edit()
         {
+            int id = (int)TempData["Cedula"];
+
+            TempData.Keep("Cedula");
+
+            int idRol = (int)TempData["IdRol"];
+            TempData.Keep("IdRol");
+
             Usuario usuario = usuariosDAL.Get(id);
 
             return View(usuario);
@@ -68,9 +76,20 @@ namespace FrontEnd.Controllers
         public IActionResult Edit(Usuario usuario)
         {
 
-            usuariosDAL.Update(usuario);
+            if ((int)TempData["IdRol"] == 1)
+            {
+                usuario.IdRol = 1;
+            } else
+            {
+                usuario.IdRol = 2;
+            }
 
-            return RedirectToAction("Index");
+            TempData.Keep("IdRol");
+           
+
+                usuariosDAL.Update(usuario);
+
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 
